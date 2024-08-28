@@ -22,4 +22,4 @@ function App() {
   );
 }
 
-export default App; `sa`  
+export default App;
