@@ -44,7 +44,7 @@ export const OAuthHandler = () => {
           console.error('Code verifier not found.');
           return;
         }
-        const OAuthURL = `https://ohhell.auth.us-east-1.amazoncognito.com/oauth2/token?`;
+        const OAuthURL = `https://ohhell.auth.us-east-1.amazoncognito.com/oauth2/token`;
         console.log("Verifier for token request:",codeVerifier);
         checkIfValid();
         const data = new URLSearchParams({
