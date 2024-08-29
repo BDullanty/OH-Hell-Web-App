@@ -4,9 +4,7 @@ generateCodeVerifier();
 generateCodeChallenge();
 
   export const createAuthLink = async()=> {
-    console.log('in create auth link')
-    const verifier = localStorage.getItem('verifier');
-    localStorage.setItem('code_verifier', verifier);
+    console.log('in createAuthLink')
     console.log('Verifier initially:'+localStorage.getItem('verifier'))
     const codeChallenge = localStorage.getItem('challenge');
     const clientId = '44i7gporhs72lcdgs0ht1ak564';
@@ -32,7 +30,7 @@ export const OAuthHandler = () => {
     const handleOAuthRedirect = async () => {
       const urlParams = new URLSearchParams(window.location.search);
       const authCode = urlParams.get('code');
-      const redirectUri = encodeURIComponent('http://localhost:3000'); // Should match the one used in the initial request
+      const redirectUri = encodeURIComponent('http://localhost:3000/oauth/callback'); // Should match the one used in the initial request
 
       if (authCode) {
         console.log('AuthCode:', authCode);
@@ -43,19 +41,24 @@ export const OAuthHandler = () => {
           console.error('Code verifier not found.');
           return;
         }
-        const OAuthURL = `https://ohhell.auth.us-east-1.amazoncognito.com/oauth2/token?`+
-                          `grant_type=authorization_code&`+
-                          `code=${authCode}&`+
-                          `client_id=44i7gporhs72lcdgs0ht1ak564&`+
-                          `redirect_uri=${redirectUri}&`+
-                          `code_verifier=${codeVerifier}`;
+        const OAuthURL = `https://ohhell.auth.us-east-1.amazoncognito.com/oauth2/token`;
+        const data = {
+          client_id: '44i7gporhs72lcdgs0ht1ak564',
+          grant_type: 'authorization_code',
+          code: `${authCode}`,
+          redirect_uri: encodeURIComponent(`${redirectUri}`),
+          code_verifier: `${codeVerifier}`
+        };
+        console.log(OAuthURL)
+        console.log(data)
         try {
           const response = await axios.post(
             OAuthURL,
+            data,
             {
               headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
             }
           );
 
