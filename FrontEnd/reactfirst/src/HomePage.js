@@ -1,8 +1,8 @@
 
 import './App.css';
-import {createAuthLink} from './Components/OAuthHandler';
-createAuthLink();
+import {generateChallenge} from './Components/OAuthHandler';
 function HomePage(){
+  generateChallenge();
   console.log('IN HomePage')
   console.log('AuthURL:'+localStorage.getItem('authUrl'))
   return (
