@@ -11,7 +11,7 @@ import { verifyChallenge } from "pkce-challenge";
     console.log('Verifier initially:'+localStorage.getItem('verifier'))
     const codeChallenge = localStorage.getItem('challenge');
     const clientId = '44i7gporhs72lcdgs0ht1ak564';
-    const redirectUri = encodeURIComponent('https://main.dmqlib7blr1by.amplifyapp.com/');
+    const redirectUri = encodeURIComponent('https://main.dmqlib7blr1by.amplifyapp.com/oauth/callback');
     const scopes = encodeURIComponent('email openid phone');
     const codeChallengeMethod = 'S256';
     console.log()
