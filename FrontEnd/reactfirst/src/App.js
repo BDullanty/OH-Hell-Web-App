@@ -8,10 +8,11 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage/>}>
-          <Route path="oauth/callback" element={<OAuthHandler/>} />
-          <Route path="*" element={<NotFound/>} />
-       </Route>
+        <Route path="/" element={<HomePage/>}/>
+        <Route path="oauth/callback" element={<OAuthHandler/>} />
+        <Route path="oauth/callback/" element={<OAuthHandler/>} />
+        <Route path="*" element={<NotFound/>} />
+       
       </Routes>
     </Router>
   );

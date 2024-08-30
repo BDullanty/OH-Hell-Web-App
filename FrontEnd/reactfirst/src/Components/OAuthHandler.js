@@ -24,7 +24,7 @@ import { verifyChallenge } from "pkce-challenge";
                     `code_challenge=${codeChallenge}`;
 
             localStorage.setItem('authUrl', authUrl);
-            console.log(localStorage.getItem('authUrl'))
+            console.log("Access Auth URL:",localStorage.getItem('authUrl'))
 };
 export function OAuthHandler() {
   console.log('In OAuthHandler');
@@ -81,6 +81,7 @@ export function OAuthHandler() {
     
     handleOAuthRedirect();
   }, []);
+
   return <div>Handling OAuth...</div>;
 };
 export async function checkIfValid(){
