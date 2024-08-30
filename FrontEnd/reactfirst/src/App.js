@@ -8,7 +8,7 @@ const App = () => {
 
       <Router>
       <Routes>
-        <Route path="/oauth/callback/" Component={OAuthHandler} />
+        <Route path="/oauth/callback" Component={OAuthHandler} />
         {/* Other routes */}
         <Route path="/" Component={HomePage}>
          
