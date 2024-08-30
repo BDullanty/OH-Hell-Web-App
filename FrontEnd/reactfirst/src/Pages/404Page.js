@@ -1,6 +1,5 @@
 
-function notFound(){
-  generateChallenge();
+const notFound=()=>{
   console.log('IN 404 page!')
   return (
     <div>

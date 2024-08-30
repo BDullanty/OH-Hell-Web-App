@@ -1,7 +1,7 @@
 
-import './App.css';
-import {generateChallenge} from './Components/OAuthHandler';
-function HomePage(){
+import '../App.css';
+import {generateChallenge} from '../Components/OAuthHandler';
+const HomePage = () =>{
   generateChallenge();
   console.log('IN HomePage')
   console.log('AuthURL:'+localStorage.getItem('authUrl'))
