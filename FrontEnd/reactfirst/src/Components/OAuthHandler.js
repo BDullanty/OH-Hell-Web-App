@@ -10,7 +10,7 @@ import { verifyChallenge } from "pkce-challenge";
     console.log('in createAuthLink')
     const codeChallenge = localStorage.getItem('challenge');
     const clientId = '6i4uih2m1usmsbkrp316qhpdsl';
-    const redirectUri = encodeURIComponent('http://localhost:3000/oauth/callback');
+    const redirectUri = encodeURIComponent('https://main.dmqlib7blr1by.amplifyapp.com/oauth/callback');
     const scopes = encodeURIComponent('email openid phone');
     const codeChallengeMethod = 'S256';
     console.log()
@@ -33,7 +33,7 @@ export function OAuthHandler() {
     const handleOAuthRedirect = async () => {
       const urlParams = new URLSearchParams(window.location.search);
       const authCode = urlParams.get('code');
-      const redirectUri = 'http://localhost:3000/oauth/callback';
+      const redirectUri = 'https://main.dmqlib7blr1by.amplifyapp.com/oauth/callback';
 
       if (authCode) {
         console.log('AuthCode:', authCode);
@@ -71,7 +71,7 @@ export function OAuthHandler() {
           console.log('Access Token:', access_token);
           console.log('Refresh Token:', refresh_token);
           //now we redirect to add page
-          window.location.replace('http://localhost:3000/counter');
+          window.location.replace('https://main.dmqlib7blr1by.amplifyapp.com/counter');
         } catch (error) {
           console.error('Token Exchange Error:', error.response ? error.response.data : error.message);
         }
@@ -85,7 +85,7 @@ export function OAuthHandler() {
     <p>Handling OAuth Stuff...</p>
     <Button
   onClick={() => {
-    window.location.replace('http://localhost:3000');
+    window.location.replace('https://main.dmqlib7blr1by.amplifyapp.com/');
   }}
 >
   Click me to go to home page

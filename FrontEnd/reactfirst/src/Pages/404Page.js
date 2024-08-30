@@ -6,7 +6,7 @@ const NotFound=()=>{
     <p> Page request is not found.</p>
     <Button
       onClick={() => {
-        window.location.replace('http://localhost:3000');
+        window.location.replace('https://main.dmqlib7blr1by.amplifyapp.com/');
       }}>
         HomePage
       </Button>
