@@ -94,7 +94,7 @@ export async function checkIfValid(){
 }
 export async function generateChallenge(){
   
-  const response = await pkceChallenge();
+  const response = await pkceChallenge(128);
   console.log('Generating Challenge',response);
   localStorage.setItem('verifier',response.code_verifier);
   localStorage.setItem('challenge',response.code_challenge);
