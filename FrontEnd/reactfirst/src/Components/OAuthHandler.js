@@ -52,6 +52,8 @@ export const OAuthHandler = () => {
           grant_type: 'authorization_code',
           code: authCode,
           code_verifier: codeVerifier,
+          redirect_uri: redirectUri,
+
         });
         console.log(OAuthURL)
         console.log("Token Request Data:",data)
