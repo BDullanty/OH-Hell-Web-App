@@ -8,10 +8,9 @@ import { verifyChallenge } from "pkce-challenge";
   //We are using PKCE so we must generate a challenge and send it
   export const createAuthLink = () =>{
     console.log('in createAuthLink')
-    console.log('Verifier initially:'+localStorage.getItem('verifier'))
     const codeChallenge = localStorage.getItem('challenge');
     const clientId = '6i4uih2m1usmsbkrp316qhpdsl';
-    const redirectUri = encodeURIComponent('https://main.dmqlib7blr1by.amplifyapp.com/oauth/callback');
+    const redirectUri = encodeURIComponent('http://localhost:3000/oauth/callback');
     const scopes = encodeURIComponent('email openid phone');
     const codeChallengeMethod = 'S256';
     console.log()
@@ -25,6 +24,7 @@ import { verifyChallenge } from "pkce-challenge";
 
             localStorage.setItem('authUrl', authUrl);
             console.log("Access Auth URL:",localStorage.getItem('authUrl'))
+            return authUrl;
 };
 export function OAuthHandler() {
   console.log('In OAuthHandler');
@@ -33,20 +33,18 @@ export function OAuthHandler() {
     const handleOAuthRedirect = async () => {
       const urlParams = new URLSearchParams(window.location.search);
       const authCode = urlParams.get('code');
-      const redirectUri = 'https://main.dmqlib7blr1by.amplifyapp.com/oauth/callback';
+      const redirectUri = 'http://localhost:3000/oauth/callback';
 
       if (authCode) {
         console.log('AuthCode:', authCode);
         const codeVerifier = localStorage.getItem('verifier'); // Retrieve the codeVerifier
-        console.log('OAuth Verifier:', codeVerifier);
         
         if (!codeVerifier) {
           console.error('Code verifier not found.');
           return;
         }
         const OAuthURL = `https://ohhell.auth.us-east-1.amazoncognito.com/oauth2/token`;
-        console.log("Verifier for token request:",codeVerifier);
-        checkIfValid();
+        console.log("Verifier for token request:\n",codeVerifier);
         const data = new URLSearchParams({
           'client_id': '6i4uih2m1usmsbkrp316qhpdsl',
           'grant_type': 'authorization_code',
@@ -55,8 +53,7 @@ export function OAuthHandler() {
           'redirect_uri': redirectUri,
 
         }).toString();
-        console.log(OAuthURL)
-        console.log("Token Request Data:",data)
+        console.log("Token Request Data:\n",data)
         try {
           const response = await axios.post(
             OAuthURL,
@@ -73,6 +70,8 @@ export function OAuthHandler() {
           const { access_token, refresh_token } = response.data;
           console.log('Access Token:', access_token);
           console.log('Refresh Token:', refresh_token);
+          //now we redirect to add page
+          window.location.replace('http://localhost:3000/counter');
         } catch (error) {
           console.error('Token Exchange Error:', error.response ? error.response.data : error.message);
         }
