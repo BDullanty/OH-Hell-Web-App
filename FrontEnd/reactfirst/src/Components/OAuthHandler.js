@@ -81,16 +81,20 @@ export function OAuthHandler() {
     handleOAuthRedirect();
   }, []);
 
-  return <div>Handling OAuth...</div>;
+  return <div>
+    <p>Handling OAuth Stuff...</p>
+    <Button
+  onClick={() => {
+    window.location.replace('http://localhost:3000');
+  }}
+>
+  Click me to go to home page
+</Button>
+
+  
+  </div>
 };
-export async function checkIfValid(){
-  try{
-    const result = await verifyChallenge(localStorage.getItem('verifier'), localStorage.getItem('challenge')) ===
-  true // true){
-    console.log("Challenge is valid. ",result)
-  } catch(error){
-    console.log('Challenge FAILED');
-  }
+
 }
 export async function generateChallenge(){
   
