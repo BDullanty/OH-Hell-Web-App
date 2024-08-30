@@ -26,7 +26,7 @@ import { verifyChallenge } from "pkce-challenge";
             localStorage.setItem('authUrl', authUrl);
             console.log(localStorage.getItem('authUrl'))
 };
-export const OAuthHandler = () => {
+export function OAuthHandler() {
   console.log('In OAuthHandler');
   
   useEffect(() => {
