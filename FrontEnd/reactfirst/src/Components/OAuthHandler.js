@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import pkceChallenge from 'pkce-challenge';
+import {Button} from '@mui/material';
 import { verifyChallenge } from "pkce-challenge";
  
 
@@ -95,13 +95,33 @@ export function OAuthHandler() {
   </div>
 };
 
+
+function generateVerifier(length) {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+
+  return text;
 }
+async function generateCodeChallenge(codeVerifier) {
+  var digest = await crypto.subtle.digest("SHA-256",
+    new TextEncoder().encode(codeVerifier));
+
+  return btoa(String.fromCharCode(...new Uint8Array(digest)))
+    .replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
+}
+
 export async function generateChallenge(){
   
-  const response = await pkceChallenge(128);
-  console.log('Generating Challenge',response);
-  localStorage.setItem('verifier',response.code_verifier);
-  localStorage.setItem('challenge',response.code_challenge);
+  const verifier = generateVerifier(128);
+  const challenge = await generateCodeChallenge(verifier);
+  localStorage.setItem('verifier', verifier);
+  localStorage.setItem('challenge', challenge);
   console.log('Logged verifier',localStorage.getItem('verifier'));
-  createAuthLink();
+  console.log('Logged challenge',localStorage.getItem('challenge'));
+  const returnValue = createAuthLink();
+  return returnValue;
 }
