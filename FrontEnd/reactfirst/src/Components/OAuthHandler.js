@@ -48,11 +48,11 @@ export const OAuthHandler = () => {
         console.log("Verifier for token request:",codeVerifier);
         checkIfValid();
         const data = new URLSearchParams({
-          client_id: '6i4uih2m1usmsbkrp316qhpdsl',
-          grant_type: 'authorization_code',
-          code: authCode,
-          code_verifier: codeVerifier,
-          redirect_uri: redirectUri,
+          'client_id': '6i4uih2m1usmsbkrp316qhpdsl',
+          'grant_type': 'authorization_code',
+          'code': authCode,
+          'code_verifier': codeVerifier,
+          'redirect_uri': redirectUri,
 
         }).toString();
         console.log(OAuthURL)
