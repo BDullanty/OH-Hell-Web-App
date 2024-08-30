@@ -54,7 +54,7 @@ export const OAuthHandler = () => {
           code_verifier: codeVerifier,
           redirect_uri: redirectUri,
 
-        });
+        }).toString();
         console.log(OAuthURL)
         console.log("Token Request Data:",data)
         try {
