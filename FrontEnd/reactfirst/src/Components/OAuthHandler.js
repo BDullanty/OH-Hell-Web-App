@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import {Button} from '@mui/material';
-import { verifyChallenge } from "pkce-challenge";
- 
+
+const clientId = '1l1nm0q3l9hjvk5hlsi1vhefj3';
+const redirectUri = encodeURIComponent('https://main.dmqlib7blr1by.amplifyapp.com/oauth/callback');
 
   //creates the initial request for the token.
   //We are using PKCE so we must generate a challenge and send it
-  export const createAuthLink = () =>{
+export const createAuthLink = () =>{
     console.log('in createAuthLink')
     const codeChallenge = localStorage.getItem('challenge');
-    const clientId = '6i4uih2m1usmsbkrp316qhpdsl';
-    const redirectUri = encodeURIComponent('https://main.dmqlib7blr1by.amplifyapp.com/oauth/callback');
     const scopes = encodeURIComponent('email openid phone');
     const codeChallengeMethod = 'S256';
-    console.log()
-    const authUrl = `https://ohhell.auth.us-east-1.amazoncognito.com/login?`+
+    const authUrl = `https://ohhell.auth.us-west-1.amazoncognito.com/login?`+
                     `client_id=${clientId}&` +
                     `response_type=code&` +
                     `scope=${scopes}&` +
@@ -33,7 +31,6 @@ export function OAuthHandler() {
     const handleOAuthRedirect = async () => {
       const urlParams = new URLSearchParams(window.location.search);
       const authCode = urlParams.get('code');
-      const redirectUri = 'https://main.dmqlib7blr1by.amplifyapp.com/oauth/callback';
 
       if (authCode) {
         console.log('AuthCode:', authCode);
@@ -43,10 +40,10 @@ export function OAuthHandler() {
           console.error('Code verifier not found.');
           return;
         }
-        const OAuthURL = `https://ohhell.auth.us-east-1.amazoncognito.com/oauth2/token`;
+        const OAuthURL = `https://ohhell.auth.us-west-1.amazoncognito.com/oauth2/token`;
         console.log("Verifier for token request:\n",codeVerifier);
         const data = new URLSearchParams({
-          'client_id': '6i4uih2m1usmsbkrp316qhpdsl',
+          'client_id': {clientId},
           'grant_type': 'authorization_code',
           'code': authCode,
           'code_verifier': codeVerifier,
