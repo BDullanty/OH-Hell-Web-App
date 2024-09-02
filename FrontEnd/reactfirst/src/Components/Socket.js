@@ -1,11 +1,14 @@
+import {getCookie} from './cookies';
+
+
 const url = 'wss://ohzd43i31j.execute-api.us-west-1.amazonaws.com/production/';
 
 let socket = null;
 
 export async function connectWebSocket() {
-    try {
-      const token = document.cookie;
-  console.log("Cookie: ",document.cookie)
+  const token = getCookie('access_token');  
+  try {
+  console.log("Cookie: ",token)
 
     socket =new WebSocket(url, [], {
       headers: {
