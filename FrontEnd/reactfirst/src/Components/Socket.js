@@ -10,7 +10,7 @@ export async function connectWebSocket() {
   try {
   console.log("Cookie: ",token)
 
-    socket =new WebSocket(url, [], {
+    socket =new WebSocket(url+'$connect', [], {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -30,6 +30,7 @@ export async function connectWebSocket() {
 
     socket.addEventListener('error', function (error) {
       console.error('WebSocket error:', error);
+      console.error('WebSocket error:', error.data);
     });
   } catch(error){
     console.error("Failed connecting to websocket: ",error)
