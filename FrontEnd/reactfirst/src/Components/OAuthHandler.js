@@ -43,7 +43,7 @@ export function OAuthHandler() {
         const OAuthURL = `https://ohhell.auth.us-west-1.amazoncognito.com/oauth2/token`;
         console.log("Verifier for token request:\n",codeVerifier);
         const data = new URLSearchParams({
-          'client_id': {clientId},
+          'client_id': clientId,
           'grant_type': 'authorization_code',
           'code': authCode,
           'code_verifier': codeVerifier,
