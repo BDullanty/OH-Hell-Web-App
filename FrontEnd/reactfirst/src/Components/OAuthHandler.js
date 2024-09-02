@@ -67,6 +67,8 @@ export function OAuthHandler() {
           const { access_token, refresh_token } = response.data;
           console.log('Access Token:', access_token);
           console.log('Refresh Token:', refresh_token);
+          //lets store it for usage in cookies.
+          document.cookie = "access_token="+access_token;
           //now we redirect to add page
           window.location.replace('https://main.dmqlib7blr1by.amplifyapp.com/counter');
         } catch (error) {
