@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import {Button} from '@mui/material';
-
+import {setCookie, getCookie} from './cookies';
 const clientId = '1l1nm0q3l9hjvk5hlsi1vhefj3';
 const redirectUri = 'https://main.dmqlib7blr1by.amplifyapp.com/oauth/callback';
 
@@ -68,8 +68,10 @@ export function OAuthHandler() {
           const { access_token, refresh_token } = response.data;
           console.log('Access Token:', access_token);
           console.log('Refresh Token:', refresh_token);
+
           //lets store it for usage in cookies.
-          document.cookie = "access_token="+access_token;
+          setCookie('access_token',access_token,1);
+          console.log(getCookie('access_token'));
           //now we redirect to add page
           window.location.replace('https://main.dmqlib7blr1by.amplifyapp.com/counter');
         } catch (error) {
