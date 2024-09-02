@@ -10,7 +10,7 @@ export async function connectWebSocket() {
   try {
   console.log("Cookie: ",token)
 
-    socket =new WebSocket(url+'$connect', [], {
+    socket =new WebSocket(url, [], {
       headers: {
         'Authorization': `Bearer ${token}`
       }
