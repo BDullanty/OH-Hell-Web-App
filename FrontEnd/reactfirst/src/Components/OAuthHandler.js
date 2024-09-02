@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Button} from '@mui/material';
 
 const clientId = '1l1nm0q3l9hjvk5hlsi1vhefj3';
-const redirectUri = encodeURIComponent('https://main.dmqlib7blr1by.amplifyapp.com/oauth/callback');
+const redirectUri = 'https://main.dmqlib7blr1by.amplifyapp.com/oauth/callback';
 
   //creates the initial request for the token.
   //We are using PKCE so we must generate a challenge and send it
@@ -12,11 +12,12 @@ export const createAuthLink = () =>{
     const codeChallenge = localStorage.getItem('challenge');
     const scopes = encodeURIComponent('email openid phone');
     const codeChallengeMethod = 'S256';
+    const encodedURI=encodeURIComponent(redirectUri);
     const authUrl = `https://ohhell.auth.us-west-1.amazoncognito.com/login?`+
                     `client_id=${clientId}&` +
                     `response_type=code&` +
                     `scope=${scopes}&` +
-                    `redirect_uri=${redirectUri}&` +
+                    `redirect_uri=${encodedURI}&` +
                     `code_challenge_method=${codeChallengeMethod}&`+
                     `code_challenge=${codeChallenge}`;
 
