@@ -1,5 +1,6 @@
 
 import {Button} from '@mui/material';
+import {connectWebSocket} from '../Components/Socket';
 const Counter = () =>{
  
   return (
@@ -7,11 +8,12 @@ const Counter = () =>{
 
     <header className="App-header">
   <p>
-  Click Below change the database number! (not yet)
-  </p>
+  Click Below to create a websocket
+    </p>
  
   <Button
   onClick={() => {
+    connectWebSocket();
   }}
 >
   Click me
@@ -22,5 +24,4 @@ const Counter = () =>{
   );
   
 }
-
 export default Counter;
