@@ -12,7 +12,7 @@ export async function connectWebSocket() {
 
     socket =new WebSocket(url, [], {
       headers: {
-        'Authorization': `Bearer ${token}`
+        'authorizationToken': `${token}`
       }
     });
 
