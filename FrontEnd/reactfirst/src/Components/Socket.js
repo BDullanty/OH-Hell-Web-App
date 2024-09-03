@@ -1,7 +1,7 @@
 import {getCookie} from './cookies';
 
 
-const url = 'wss://ylhdgko44i.execute-api.us-west-1.amazonaws.com/production/';
+let url = 'wss://ylhdgko44i.execute-api.us-west-1.amazonaws.com/production/';
 
 let socket = null;
 
