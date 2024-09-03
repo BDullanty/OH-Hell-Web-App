@@ -7,8 +7,10 @@ let socket = null;
 
 export async function connectWebSocket() {
   const token = getCookie('access_token');  
+  url+=`?authorizationToken=${encodeURIComponent(token)}`;
   try {
   console.log("Cookie: ",token)
+  console.log("Connection URL: ",url);
 
     socket =new WebSocket(url, [], {
       headers: {
