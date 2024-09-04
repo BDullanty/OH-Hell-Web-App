@@ -1,0 +1,64 @@
+//this file is code for the inside of the lambda authorizing function for authorizing a $connect websocket.
+//Be sure to change values with CHANGEME
+//import used to do rsa calc for us.
+import { CognitoJwtVerifier } from 'aws-jwt-verify';
+
+// Create the verifier outside the Lambda handler
+const jwtVerifier = CognitoJwtVerifier.create({
+  userPoolId: "us-west-1_CHANGEME",
+  tokenUse: "access",
+  clientId: "CHANGEME",
+});
+//Lets handle the auth now
+export const handler = async (event) => {
+  let token;
+  try {
+    console.log("Query Params: ",event.queryStringParameters);
+    //Token is translated based on the Identity Source Type and Key from the API Gateway Authorizer settings.
+    token = event.queryStringParameters.Authorization;
+    console.log("token: ",token);
+    // Validate the token
+    const payload = await jwtVerifier.verify(token);
+    //Payload is a decoded json web token full of details, that has a verified signature.
+    
+    console.log("Token Payload:\n", payload);
+    //check some other things to verify
+    if (payload.iss !== 'https://cognito-idp.us-west-1.amazonaws.com/us-west-1_CHANGEME') {
+       throw new Error('Invalid issuer');
+    }
+    const now = Math.floor(Date.now() / 1000);
+    
+    console.log("Time now: ",now)
+    if (payload.exp < now) {
+      throw new Error('Token expired');
+    }
+    if (payload.iat > now) {
+      throw new Error('Token issued in the future');
+    }
+  
+    //at this point the jwt is verified
+    const returnValue=
+    {
+    principalId: payload.sub,
+    policyDocument: {
+        Version: "2012-10-17",
+        Statement: [
+            {
+                Action: "execute-api:Invoke",
+                Effect: "allow",
+                Resource: "arn:aws:execute-api:us-west-1:CHANGEME:CHANGEME/*/*"
+            }
+         ]
+       }
+    }
+    
+    console.log("Returning ",returnValue)
+   return returnValue; 
+   
+  } catch (error) {
+    //return bad if anything above fails
+    console.error("Error verifying token:", error);
+     return("Unauthorized"); 
+  }//end catch
+
+};
