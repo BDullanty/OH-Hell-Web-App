@@ -11,11 +11,7 @@ export async function connectWebSocket() {
   console.log("Cookie: ",token)
   console.log("Connection URL: ",url);
 
-    socket =new WebSocket(url, [],{
-      headers: {
-          'Sec-WebSocket-Protocol': `authorizationToken, ${token}`
-      }
-  });
+    socket =new WebSocket(url, ['authorizationToken', `${token}`]);
 
     socket.addEventListener('open', function (event) {
       console.log('WebSocket connection opened',event.data);
