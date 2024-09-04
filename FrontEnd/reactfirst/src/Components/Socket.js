@@ -1,7 +1,6 @@
 import {getCookie} from './cookies';
 
 
-let url = 'wss://ylhdgko44i.execute-api.us-west-1.amazonaws.com/production';
 
 let socket = null;
 export async function connectWebSocket() {
@@ -9,7 +8,8 @@ export async function connectWebSocket() {
   try {
   console.log("Cookie: ",token)
   console.log("Connection URL: ",url);
-  url +="?Authorization="+token;
+  
+  const url = "wss://ylhdgko44i.execute-api.us-west-1.amazonaws.com/production?Authorization="+token;
   console.log("URL and Token: ",url);
 
     socket = new WebSocket(url);
