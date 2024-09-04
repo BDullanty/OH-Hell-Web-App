@@ -16,6 +16,8 @@ export async function connectWebSocket() {
 
     socket.addEventListener('open', function (event) {
       console.log('WebSocket connection opened :)',event);
+      console.log('Event Data: ',event.data);
+      console.log('Event Data again: '+event.data);
     });
 
     socket.addEventListener('message', function (event) {
