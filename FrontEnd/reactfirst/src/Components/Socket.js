@@ -9,8 +9,10 @@ export async function connectWebSocket() {
   try {
   console.log("Cookie: ",token)
   console.log("Connection URL: ",url);
+  url +="?Authorization="+token;
+  console.log("URL and Token: ",url);
 
-    socket = new WebSocket(url,[token]);
+    socket = new WebSocket(url);
 
     socket.addEventListener('open', function (event) {
       console.log('WebSocket connection opened',event.data);
