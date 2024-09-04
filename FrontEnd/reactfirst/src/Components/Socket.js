@@ -1,22 +1,17 @@
 import {getCookie} from './cookies';
 
 
-let url = 'wss://ylhdgko44i.execute-api.us-west-1.amazonaws.com/production/';
+const url = 'wss://ylhdgko44i.execute-api.us-west-1.amazonaws.com/production';
 
 let socket = null;
 
 export async function connectWebSocket() {
-  const token = getCookie('access_token');  
-  url+=`?authorizationToken=${encodeURIComponent(token)}`;
+  const token = getCookie('access_token');
   try {
   console.log("Cookie: ",token)
   console.log("Connection URL: ",url);
 
-    socket =new WebSocket(url, [], {
-      headers: {
-        'authorizationToken': `${token}`
-      }
-    });
+    socket =new WebSocket(url, ['authorizationToken', `${token}`]);
 
     socket.addEventListener('open', function (event) {
       console.log('WebSocket connection opened',event.data);
