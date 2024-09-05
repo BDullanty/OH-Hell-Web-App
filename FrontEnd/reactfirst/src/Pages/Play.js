@@ -3,14 +3,13 @@ import {Button} from '@mui/material';
 import {connectWebSocket, socket} from '../Components/Socket';
 
 let LobbyListOnCooldown= false;
-const cooldownTime = 5000;
+const cooldownTime = 5000;//1000 is one second
 
 const getLobbyListMessage = 
-
 {
-  "action": "ListLobbyGames",
-  "data": {
-    "testData": "Hi"
+  action: "ListLobbyGames",
+  data: {
+    testData: "Hi"
     
   }
 };
