@@ -1,19 +1,19 @@
 
 import {Button} from '@mui/material';
 import {connectWebSocket} from '../Components/Socket';
-const Counter = () =>{
- 
+const Play = () =>{
+  connectWebSocket();
   return (
     <div className="App">    
 
     <header className="App-header">
   <p>
-  Click Below to create a websocket
-    </p>
+    Click Below to send a message
+  </p>
  
   <Button
   onClick={() => {
-    connectWebSocket();
+    //send message to lambda function
   }}
 >
   Click me
@@ -24,4 +24,4 @@ const Counter = () =>{
   );
   
 }
-export default Counter;
+export default Play;
