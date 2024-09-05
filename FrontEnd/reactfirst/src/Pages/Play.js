@@ -17,16 +17,14 @@ const Play = () =>{
     <div className="App">    
 
     <header className="App-header">
-  <p>
-    Click Below to send a message
-  </p>
+
  
   <Button
   onClick={() => {
     socket.send(getLobbyListMessage);
   }}
 >
-  Click me
+  Refresh lobbyList
 </Button>
     </header>
   </div>
