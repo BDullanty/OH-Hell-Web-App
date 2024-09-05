@@ -6,13 +6,14 @@ let LobbyListOnCooldown= false;
 const cooldownTime = 5000;//1000 is one second
 
 const getLobbyListMessage = 
-{
+
+JSON.stringify({
   action: "ListLobbyGames",
   data: {
     testData: "Hi"
     
   }
-};
+});
 const Play = () =>{
   connectWebSocket();
   
