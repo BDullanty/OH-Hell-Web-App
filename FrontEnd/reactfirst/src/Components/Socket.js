@@ -2,7 +2,7 @@ import {getCookie} from './cookies';
 
 
 
-let socket = null;
+export let socket = null;
 export async function connectWebSocket() {
   const token = getCookie('access_token');
   try {
