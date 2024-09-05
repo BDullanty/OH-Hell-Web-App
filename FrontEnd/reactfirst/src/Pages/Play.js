@@ -12,10 +12,7 @@ const Play = () =>{
   const getLobbyListMessage = 
 
 JSON.stringify({
-  action: "ListLobbyGames",
-  token: `${getCookie('access_token')}`
-    
-  
+  token: `${getCookie('access_token')}`  
 });
   return (
     <div className="App">    
