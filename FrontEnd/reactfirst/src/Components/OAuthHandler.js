@@ -64,7 +64,7 @@ export function OAuthHandler() {
           //lets store it for usage in cookies.
           setCookie('access_token',access_token,1);
           //now we redirect to add page
-          window.location.replace('https://main.dmqlib7blr1by.amplifyapp.com/counter');
+          window.location.replace('https://main.dmqlib7blr1by.amplifyapp.com/play');
         } catch (error) {
           console.error('Token Exchange Error:', error.response ? error.response.data : error.message);
         }
