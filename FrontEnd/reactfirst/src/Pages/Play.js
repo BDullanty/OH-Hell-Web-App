@@ -1,22 +1,22 @@
 
 import {Button} from '@mui/material';
 import {connectWebSocket, socket} from '../Components/Socket';
+import { getCookie } from '../Components/cookies';
 
 let LobbyListOnCooldown= false;
 const cooldownTime = 5000;//1000 is one second
 
-const getLobbyListMessage = 
+
+const Play = () =>{
+  connectWebSocket();
+  const getLobbyListMessage = 
 
 JSON.stringify({
   action: "ListLobbyGames",
-  data: {
-    testData: "Hi"
+  token: `${getCookie('access_token')}`
     
-  }
-});
-const Play = () =>{
-  connectWebSocket();
   
+});
   return (
     <div className="App">    
 
