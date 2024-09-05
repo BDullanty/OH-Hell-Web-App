@@ -1,6 +1,16 @@
 
 import {Button} from '@mui/material';
-import {connectWebSocket} from '../Components/Socket';
+import {connectWebSocket, socket} from '../Components/Socket';
+
+const getLobbyListMessage = 
+
+JSON.stringify({
+  route: "ListLobbyGames",
+  data: {
+    testData: "Hi",
+    
+  }
+});
 const Play = () =>{
   connectWebSocket();
   return (
@@ -13,7 +23,7 @@ const Play = () =>{
  
   <Button
   onClick={() => {
-    //send message to lambda function
+    socket.send(getLobbyListMessage);
   }}
 >
   Click me
