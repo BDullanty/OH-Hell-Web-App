@@ -5,7 +5,7 @@ import {connectWebSocket, socket} from '../Components/Socket';
 const getLobbyListMessage = 
 
 JSON.stringify({
-  route: "ListLobbyGames",
+  action: "ListLobbyGames",
   data: {
     testData: "Hi",
     
