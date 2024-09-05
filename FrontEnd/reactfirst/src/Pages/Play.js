@@ -21,6 +21,7 @@ const Play = () =>{
  
   <Button
   onClick={() => {
+    console.log(getLobbyListMessage);
     socket.send(getLobbyListMessage);
   }}
 >
