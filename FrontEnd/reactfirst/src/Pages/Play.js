@@ -2,17 +2,21 @@
 import {Button} from '@mui/material';
 import {connectWebSocket, socket} from '../Components/Socket';
 
+let LobbyListOnCooldown= false;
+const cooldownTime = 5000;
+
 const getLobbyListMessage = 
 
-JSON.stringify({
-  action: "ListLobbyGames",
-  data: {
-    testData: "Hi",
+{
+  "action": "ListLobbyGames",
+  "data": {
+    "testData": "Hi"
     
   }
-});
+};
 const Play = () =>{
   connectWebSocket();
+  
   return (
     <div className="App">    
 
@@ -21,8 +25,17 @@ const Play = () =>{
  
   <Button
   onClick={() => {
-    console.log(getLobbyListMessage);
-    socket.send(getLobbyListMessage);
+
+   
+    if(!LobbyListOnCooldown){
+      console.log("Request Json: ",getLobbyListMessage);
+      socket.send(getLobbyListMessage);
+      LobbyListOnCooldown=true;
+      setTimeout(()=>{
+          LobbyListOnCooldown=false
+        }, cooldownTime);
+      }
+    
   }}
 >
   Refresh lobbyList
