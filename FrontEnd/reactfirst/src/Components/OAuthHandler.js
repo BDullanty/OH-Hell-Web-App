@@ -59,7 +59,7 @@ export function OAuthHandler() {
 
           );
 
-          const { access_token, refresh_token } = response.data;
+          const { access_token, } = response.data;
 
           //lets store it for usage in cookies.
           setCookie('access_token',access_token,1);
