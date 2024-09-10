@@ -13,22 +13,18 @@ const jwtVerifier = CognitoJwtVerifier.create({
 export const handler = async (event) => {
   let token;
   try {
-    console.log("Query Params: ",event.queryStringParameters);
     //Token is translated based on the Identity Source Type and Key from the API Gateway Authorizer settings.
     token = event.queryStringParameters.Authorization;
-    console.log("token: ",token);
     // Validate the token
     const payload = await jwtVerifier.verify(token);
     //Payload is a decoded json web token full of details, that has a verified signature.
     
-    console.log("Token Payload:\n", payload);
     //check some other things to verify
     if (payload.iss !== 'https://cognito-idp.us-west-1.amazonaws.com/us-west-1_CHANGEME') {
        throw new Error('Invalid issuer');
     }
     const now = Math.floor(Date.now() / 1000);
     
-    console.log("Time now: ",now)
     if (payload.exp < now) {
       throw new Error('Token expired');
     }
