@@ -1,0 +1,6 @@
+//Routes status code and body back
+
+{
+  "statusCode": "$input.path('$.statusCode')",
+  "body": "$input.path('$.body')"
+}
