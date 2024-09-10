@@ -1,0 +1,6 @@
+Catch filter: /.*/
+
+Response Template:
+{
+    "body": "$input.path('$.body')"
+}
