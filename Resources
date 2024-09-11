@@ -11,5 +11,6 @@
 - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html?icmpid=apigateway_console_help
 
 
-#### Installing Java/JDK in EC2:
+####EC2:
 - https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/amazon-linux-install.html
+- https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/linux-file-transfer-scp.html
