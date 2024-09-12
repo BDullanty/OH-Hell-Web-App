@@ -27,7 +27,7 @@ public class OHHellHttpServer {
             System.out.println("RequestBody:"+requestBody);
             Player connectingPlayer = JsonHandler.getPlayerFromBody(requestBody);
             Player.addPlayerOnline(connectingPlayer);
-            System.out.println("Player Name: " + connectingPlayer.getUsername()+", with Sub ID of:"+connectingPlayer.getSub()+" Is now online.");
+            System.out.println("Player Name: " + connectingPlayer.getUsername()+", with Sub ID of:"+connectingPlayer.getSub()+" is now connected.");
             //And return our response
             String response = "{\"Player\": "+connectingPlayer.getUsername()+", \"Sub\": "+connectingPlayer.getSub()+"}";
             exchange.sendResponseHeaders(200, response.getBytes().length);
