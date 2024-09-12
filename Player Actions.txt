@@ -9,7 +9,10 @@ on call, expects body of:
 
 /ListGames:
 Lists all games that are in lobby.
-
+on call, expects body of:
+{
+ Sub : "Sub Here" (Ensures player validity, used to then pull player info from database and make an object)
+}
 /CreateGame
 Creates a new game lobby.
     Start Button
