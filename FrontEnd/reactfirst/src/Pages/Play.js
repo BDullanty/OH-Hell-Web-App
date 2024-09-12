@@ -9,11 +9,13 @@ const cooldownTime = 5000;//1000 is one second
 
 const Play = () =>{
   connectWebSocket();
-  const getLobbyListMessage = 
+  const connectMessage = 
 
 JSON.stringify({
-  token: `${getCookie('access_token')}`  
+  action: "connect",
+  jwk: `${getCookie('access_token')}`  
 });
+
   return (
     <div className="App">    
 
@@ -25,8 +27,8 @@ JSON.stringify({
 
    
     if(!LobbyListOnCooldown){
-      console.log("Request Json: ",getLobbyListMessage);
-      socket.send(getLobbyListMessage);
+      console.log("Request Json: ",connectMessage);
+      socket.send(connectMessage);
       LobbyListOnCooldown=true;
       setTimeout(()=>{
           LobbyListOnCooldown=false
@@ -35,7 +37,7 @@ JSON.stringify({
     
   }}
 >
-  Refresh lobbyList
+  Connect to backend
 </Button>
     </header>
   </div>
