@@ -1,4 +1,4 @@
-import {getCookie} from './cookies';
+import {getCookie, setCookie} from './cookies';
 
 
 
@@ -17,12 +17,18 @@ export async function connectWebSocket() {
 
     socket.addEventListener('message', function (event) {
       const jsonData = JSON.parse(event.data);
-      console.log('Message from server:', jsonData);
+
       if(jsonData.returnType === 'error'){
       console.log("Bad Request",jsonData)
       }
       else if(jsonData.returnType === 'connect'){
       console.log("connect response:",jsonData)
+      setCookie("sub",jsonData.sub,1);
+      console.log("Sub logged as: ", getCookie("sub"));
+      }
+      else{
+        
+      console.log('Message from server:', jsonData);
       }
     });
 
