@@ -23,20 +23,34 @@ public class OHHellHttpServer {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             System.out.println("Connections request received");
+
+
             String requestBody = new String(exchange.getRequestBody().readAllBytes());
-            System.out.println("RequestBody:"+requestBody);
             Player connectingPlayer = JsonHandler.getPlayerFromBody(requestBody);
-            Player.addPlayerOnline(connectingPlayer);
-            System.out.println("Player Name: " + connectingPlayer.getUsername()+", with Sub ID of:"+connectingPlayer.getSub()+" is now connected.");
-            //And return our response
-            String response = "{\"Player\": "+connectingPlayer.getUsername()+", \"Sub\": "+connectingPlayer.getSub()+"}";
-            exchange.sendResponseHeaders(200, response.getBytes().length);
-            OutputStream os = exchange.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
+
+            //If we failed to get a player properly, return 404
+            if (connectingPlayer == null) {
+                System.out.println("Bad Connect Request.");
+                String response = "{\"error\":\"Bad Connect Request\"}";
+                exchange.sendResponseHeaders(400, response.getBytes().length);
+                OutputStream os = exchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+            } else {
+                //If our jwk does process into a player and sub,
+                Player.addPlayerOnline(connectingPlayer);
+                System.out.println("Player Name: " + connectingPlayer.getUsername() + ", with Sub ID of:" + connectingPlayer.getSub() + " is now connected.");
+                //And return our response
+                String response = "{\"Player\": " + connectingPlayer.getUsername() + ", \"Sub\": " + connectingPlayer.getSub() + "}";
+                exchange.sendResponseHeaders(200, response.getBytes().length);
+                OutputStream os = exchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+
+            }
+
         }
     }
-
     //Handles all /PlayCard calls.
     static class PlayCardHandler implements HttpHandler {
         @Override
