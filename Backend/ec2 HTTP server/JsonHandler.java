@@ -17,12 +17,12 @@ public class JsonHandler {
             // Parse the JSON string
             JSONObject jsonObject = new JSONObject(body);
 
-            // Extract the value associated with the "token"
-            String token = jsonObject.getString("token");
+            // Extract the value associated with the "jwk"
+            String jwk = jsonObject.getString("jwk");
 
-            System.out.println("Token: " + token);  // Output: something
+            System.out.println("Token: " + jwk);  // Output: something
 
-            return decodeJWK(token);
+            return decodeJWK(jwk);
         } catch (Exception e) {
             throw new IllegalArgumentException("Passed in string was not converted properly");
         }
