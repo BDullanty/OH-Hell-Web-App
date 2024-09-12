@@ -22,16 +22,14 @@ public class OHHellHttpServer {
     static class ConnectHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-
+            System.out.println("Connections request received");
             String requestBody = new String(exchange.getRequestBody().readAllBytes());
-            String jwk = JsonHandler.getJWKFromBody(requestBody);
-            String username = JsonHandler.getNameFromJWK(jwk);
-            //Now that we have user name from jwk, lets add them to our playerlist
-            Player newPlayer = Player.getPlayer(username);
-            System.out.println("Player Name: " + newPlayer.name);
-            //addCodeHere
+            System.out.println("RequestBody:"+requestBody);
+            Player connectingPlayer = JsonHandler.getPlayerFromBody(requestBody);
+            Player.addPlayerOnline(connectingPlayer);
+            System.out.println("Player Name: " + connectingPlayer.getUsername()+", with Sub ID of:"+connectingPlayer.getSub()+" Is now online.");
             //And return our response
-            String response = "{\"Player\": "+newPlayer.name+"}";
+            String response = "{\"Player\": "+connectingPlayer.getUsername()+", \"Sub\": "+connectingPlayer.getSub()+"}";
             exchange.sendResponseHeaders(200, response.getBytes().length);
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
