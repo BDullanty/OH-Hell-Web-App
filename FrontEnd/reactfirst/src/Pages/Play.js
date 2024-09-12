@@ -66,10 +66,10 @@ const disconnect = () =>{
     action: "disconnect",
     sub: `${getCookie('sub')}`  
   });
-  
+
   if(!LobbyListOnCooldown){
     console.log("Disconnected!");
-    socket.close(200,disconnectMessage);
+    socket.close(1000,disconnectMessage);
     LobbyListOnCooldown=true;
     setTimeout(()=>{
         LobbyListOnCooldown=false
