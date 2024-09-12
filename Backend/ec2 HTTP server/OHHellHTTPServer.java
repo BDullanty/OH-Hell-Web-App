@@ -11,8 +11,10 @@ public class OHHellHttpServer {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         //defines all route paths into their methods.
         server.createContext("/Connect", new ConnectHandler());
-        server.createContext("/PlayCard", new PlayCardHandler());
+        server.createContext("/Disconnect", new DisconnectHandler());
         server.createContext("/ListPlayers", new ListPlayers());
+        server.createContext("/PlayCard", new PlayCardHandler());
+
         server.setExecutor(null); // Creates a default executor
         server.start();
         System.out.println("HTTP server started on port 8080");
@@ -51,6 +53,39 @@ public class OHHellHttpServer {
 
         }
     }
+    //handles the disconnect call. We return nothing here
+    static class DisconnectHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            System.out.println("Disconnect request received");
+
+
+            String requestBody = new String(exchange.getRequestBody().readAllBytes());
+            Player disconnectingPlayer = JsonHandler.getPlayerFromBody(requestBody);
+
+            //If we failed to get a player properly, print so.
+            if (disconnectingPlayer == null ) {
+                System.out.println("Bad Disconnect Request.");
+                String response = "{\"error\":\"Bad Disconnect Request\"}";
+                exchange.sendResponseHeaders(400, response.getBytes().length);
+
+            } else {
+                //If our jwk does process into a player and sub,
+                Player.removeOnlinePlayer( disconnectingPlayer);
+                System.out.println("Player Name: " + disconnectingPlayer.getUsername() + ", with Sub ID of:" + disconnectingPlayer.getSub() + " is now disconnected.");
+                //And return our response, nothing but 200 code.
+                String response = "";
+                exchange.sendResponseHeaders(200, response.getBytes().length);
+                OutputStream os = exchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+
+            }
+
+        }
+    }
+
+
     //Handles all /PlayCard calls.
     static class PlayCardHandler implements HttpHandler {
         @Override
