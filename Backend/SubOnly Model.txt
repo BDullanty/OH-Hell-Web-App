@@ -1,15 +1,19 @@
-
-//Schema below requires the body to contain a token key pair and nothing else
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "LobbyActionRequest",
   "type": "object",
   "properties": {
-    "token": {
+    "sub": {
         "type": "string",
         "description": "JWK expected"
-    }
-  },
-  "required": ["token"],
+  
+    },
+    "action": {
+        "type": "string",
+        "description": "Expected to be connect"
+     }
+    },
+    
+  "required": ["sub","action"],
   "additionalProperties": false
+ 
 }
