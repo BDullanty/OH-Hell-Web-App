@@ -1,0 +1,59 @@
+
+
+/Connect:
+Stores player in online list, with sub and name paired for use backend
+on call, expects body of:
+{
+ Sub : "Sub Here" (Ensures player validity, used to then pull player info from database and make an object)
+}
+
+/ListGames:
+Lists all games that are in lobby.
+
+/CreateGame
+Creates a new game lobby.
+    Start Button
+    Invite Button (Online players can get messages, maybe sns friends in time)
+Sets user with flag to start whenever
+on call, expects a body of:
+{
+   "Sub": "Sub Here"
+}
+
+/StartGame
+Only done by creator
+Starts game with any number of players
+on call, expects a body of:
+{
+   "Sub": "Sub Here"
+}
+
+
+/Bet
+on call, expects a body of:
+{
+   "Sub": "Sub Here"
+   "Bet" : "Value Here"
+}
+
+
+/PlayCard
+on call, expects a body of:
+{
+   "Sub": "Sub Here"
+   "Card" : "Card Here"
+}
+
+/Forfeit
+Drops player from game, ends it if no more real players.
+on call, expects a body of:
+{
+   "Sub": "Sub Here"
+}
+
+/Disconnect
+Stores players object information into database
+on call, expects a body of:
+{
+   "Sub": "Sub Here"
+}
