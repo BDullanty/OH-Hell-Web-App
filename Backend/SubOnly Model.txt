@@ -4,7 +4,7 @@
   "properties": {
     "sub": {
         "type": "string",
-        "description": "JWK expected"
+        "description": "Sub Value Expected"
   
     },
     "action": {
