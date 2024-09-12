@@ -7,22 +7,24 @@ public class JsonHandler {
     //{"action":"something","jwk":"something"}
 
     public static Player getPlayerFromBody(String body){
-        String[] subAndName = JsonHandler.getInfoFromBody(body);
-        return Player.getPlayer(subAndName[0],subAndName[1]);
+        try {
+            String[] subAndName = JsonHandler.getInfoFromBody(body);
+            return Player.getPlayer(subAndName[0],subAndName[1]);
+        } catch (Exception e){
+            System.out.println("Error when parsing token...");
+            return null;
+        }
+
 
     }
     private static String[] getInfoFromBody(String body) {
-        try {
             // Parse the JSON string
             JSONObject jsonObject = new JSONObject(body);
             // Extract the value associated with the "jwk"
             String jwk = jsonObject.getString("jwk");
             return decodeJWK(jwk);
-        }
-        catch (Exception e){
-            System.out.println("Error in GetInfoFromBody:\n"+e);
-            return null;
-        }
+
+
     }
 
     private static String[] decodeJWK(String jwk) {
