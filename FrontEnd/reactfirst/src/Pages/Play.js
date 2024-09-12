@@ -68,8 +68,9 @@ const disconnect = () =>{
   });
 
   if(!LobbyListOnCooldown){
-    console.log("Disconnected!");
+ 
     socket.close(1000,disconnectMessage);
+    console.log("Disconnected!");
     LobbyListOnCooldown=true;
     setTimeout(()=>{
         LobbyListOnCooldown=false
