@@ -4,7 +4,7 @@ import java.util.Base64;
 
 public class JsonHandler {
     //Expected String Input:
-    //{"action":"something","sub":"something", ....}
+    //{"action":"something","jwk":"something"}
 
     public static Player getPlayerFromBody(String body){
         String[] subAndName = JsonHandler.getInfoFromBody(body);
@@ -12,19 +12,16 @@ public class JsonHandler {
 
     }
     private static String[] getInfoFromBody(String body) {
-
         try {
             // Parse the JSON string
             JSONObject jsonObject = new JSONObject(body);
-
             // Extract the value associated with the "jwk"
             String jwk = jsonObject.getString("jwk");
-
-            System.out.println("Token: " + jwk);  // Output: something
-
             return decodeJWK(jwk);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Passed in string was not converted properly");
+        }
+        catch (Exception e){
+            System.out.println("Error in GetInfoFromBody:\n"+e);
+            return null;
         }
     }
 
