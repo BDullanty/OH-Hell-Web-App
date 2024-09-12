@@ -43,7 +43,7 @@ public class Player {
         if(p==null) throw new IllegalArgumentException("Player p was null");
      Player.onlineList.add(p);
     }
-    public static void removeOnlinePlayerOnline(Player p){
+    public static void removeOnlinePlayer(Player p){
         Player.onlineList.remove(p);
     }
 
