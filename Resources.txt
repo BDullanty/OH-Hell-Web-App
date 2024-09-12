@@ -12,6 +12,10 @@
 ###WebGate Wscat
 - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-how-to-call-websocket-api-wscat.html
 
-####EC2:
+##### Get User info from sub
+- https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ListUsers.html
+- https://stackoverflow.com/questions/43488445/how-do-i-look-up-a-cognito-user-by-their-sub-uuid
+
+##### EC2:
 - https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/amazon-linux-install.html
 - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/linux-file-transfer-scp.html
