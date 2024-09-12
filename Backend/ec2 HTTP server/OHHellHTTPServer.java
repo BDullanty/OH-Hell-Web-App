@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
-public class GameHttpServer {
+public class OHHellHttpServer {
 
     public static void main(String[] args) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
@@ -17,18 +17,19 @@ public class GameHttpServer {
         server.start();
         System.out.println("HTTP server started on port 8080");
     }
-    //Handles intial connections
+    //Handles initial connections
     //We want to add this player to the online list
     static class ConnectHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            String response = "Player Connected";
             String requestBody = new String(exchange.getRequestBody().readAllBytes());
-            System.out.println("Player Name: " + requestBody);
+            String sub = JsonHandler.getSubFromBody(requestBody);
+            Player newPlayer = Player.getPlayer(sub);
+            System.out.println("Player Name: " + newPlayer.name);
+            String response = "Player "+newPlayer.name+" Connected";
             exchange.sendResponseHeaders(200, response.getBytes().length);
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
-
             os.close();
         }
     }
