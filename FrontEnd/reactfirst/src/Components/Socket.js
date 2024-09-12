@@ -17,6 +17,12 @@ export async function connectWebSocket() {
 
     socket.addEventListener('message', function (event) {
       console.log('Message from server:', event.data);
+      if(event.data.returnType === 'error'){
+      console.log("Bad Request",event.data)
+      }
+      else if(event.data.returnType === 'connect'){
+      console.log("connect response:",event.data)
+      }
     });
 
     socket.addEventListener('close', function (event) {
