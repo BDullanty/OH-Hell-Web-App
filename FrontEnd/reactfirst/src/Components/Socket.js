@@ -6,7 +6,7 @@ export let socket = null;
 export async function connectWebSocket() {
   const token = getCookie('access_token');
   try {
-  const url = "wss://ylhdgko44i.execute-api.us-west-1.amazonaws.com/production?Authorization="+token;
+  const url = "wss://sbokdz62pc.execute-api.us-west-1.amazonaws.com/production?Authorization="+token;
   
 
     socket = new WebSocket(url);
