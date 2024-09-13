@@ -61,7 +61,7 @@ const connectOnline = () => {
 const disconnect = () => {
   disconnectMessage =
     JSON.stringify({
-      action: "$disconnect",
+      action: "disconnect",
       sub: `${getCookie('sub')}`
     });
 
