@@ -68,8 +68,7 @@ const disconnect = () => {
 
   //send disconnect message first
   socket.send(disconnectMessage)
-  //then close connection
-  //socket.close(1000,disconnectMessage);
+  socket.close(1000);
   console.log("Disconnected!");
   LobbyListOnCooldown = true;
   setTimeout(() => {
