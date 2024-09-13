@@ -22,12 +22,13 @@ export async function connectWebSocket() {
       console.log("Bad Request",jsonData.error)
       }
       else if(jsonData.returnType === 'connect'){
-      console.log("connect response:",jsonData.message)
+      console.log("connect response:",jsonData)
       setCookie("sub",jsonData.sub,1);
+      setCookie("username",jsonData.username,1);
       console.log("Sub logged as: ", getCookie("sub"));
+      console.log("username logged as: ", getCookie("username"));
       }
       else{
-        
       console.log('Message from server:', jsonData);
       }
     });
