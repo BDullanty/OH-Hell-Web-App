@@ -55,14 +55,14 @@ const connectOnline = () => {
       LobbyListOnCooldown = false
     }, cooldownTime);
   }
-  //We can set the disconnect message now
+
 
 }
 const disconnect = () => {
   disconnectMessage =
     JSON.stringify({
       action: "disconnect",
-      sub: `${getCookie('sub')}`
+      jwk: `${getCookie('jwk')}`
     });
 
 
