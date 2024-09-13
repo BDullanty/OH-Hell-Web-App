@@ -2,7 +2,7 @@
 import {Button} from '@mui/material';
 import {connectWebSocket, socket} from '../Components/Socket';
 import { getCookie } from '../Components/cookies';
-
+const HomePageURL = "https://main.dmqlib7blr1by.amplifyapp.com/";
 let LobbyListOnCooldown= false;
 const cooldownTime = 5000;//1000 is one second
 
@@ -29,8 +29,7 @@ const Play = () =>{
 <Button
   onClick={() => {
   disconnect();
-
-    
+  window.location.replace(HomePageURL)
   }}
 >
   Disconnect from backend
@@ -70,7 +69,7 @@ const disconnect = () =>{
   if(!LobbyListOnCooldown){
  
     socket.close(1000,disconnectMessage);
-    console.log("Disconnected!");
+       console.log("Disconnected!");
     LobbyListOnCooldown=true;
     setTimeout(()=>{
         LobbyListOnCooldown=false
