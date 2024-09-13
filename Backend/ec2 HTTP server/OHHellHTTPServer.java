@@ -43,7 +43,7 @@ public class OHHellHttpServer {
                 Player.addPlayerOnline(connectingPlayer);
                 System.out.println("Player Name: " + connectingPlayer.getUsername() + ", with Sub ID of:" + connectingPlayer.getSub() + " is now connected.");
                 //And return our response
-                String response = "{\"Player\": " + connectingPlayer.getUsername() + ", \"Sub\": " + connectingPlayer.getSub() + "}";
+                String response = "{\"Player\": \"" + connectingPlayer.getUsername() + "\", \"Sub\": \"" + connectingPlayer.getSub() + "\"}";
                 exchange.sendResponseHeaders(200, response.getBytes().length);
                 OutputStream os = exchange.getResponseBody();
                 os.write(response.getBytes());
