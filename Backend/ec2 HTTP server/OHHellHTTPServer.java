@@ -67,18 +67,12 @@ public class OHHellHttpServer {
             if (disconnectingPlayer == null ) {
                 System.out.println("Bad Disconnect Request.");
                 String response = "{\"error\":\"Bad Disconnect Request\"}";
-                exchange.sendResponseHeaders(400, response.getBytes().length);
 
             } else {
                 //If our jwk does process into a player and sub,
                 Player.removeOnlinePlayer( disconnectingPlayer);
                 System.out.println("Player Name: " + disconnectingPlayer.getUsername() + ", with Sub ID of:" + disconnectingPlayer.getSub() + " is now disconnected.");
-                //And return our response, nothing but 200 code.
-                String response = "";
-                exchange.sendResponseHeaders(200, response.getBytes().length);
-                OutputStream os = exchange.getResponseBody();
-                os.write(response.getBytes());
-                os.close();
+
 
             }
 
