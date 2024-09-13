@@ -7,10 +7,14 @@
 - https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html#amazon-cognito-user-pools-using-tokens-aws-jwt-verify
 - https://stackoverflow.com/questions/4361173/http-headers-in-websockets-client-api
 - https://faqs.ably.com/is-it-secure-to-send-the-access_token-as-part-of-the-websocket-url-query-params
+
 ##### Lambda Authorizing the tokens:
 - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html?icmpid=apigateway_console_help
 ###WebGate Wscat
 - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-how-to-call-websocket-api-wscat.html
+
+##### $Context mapping variables
+- https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html#context-variable-reference
 
 ##### Get User info from sub
 - https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ListUsers.html
