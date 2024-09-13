@@ -19,10 +19,10 @@ export async function connectWebSocket() {
       const jsonData = JSON.parse(event.data);
 
       if(jsonData.returnType === 'error'){
-      console.log("Bad Request",jsonData)
+      console.log("Bad Request",jsonData.error)
       }
       else if(jsonData.returnType === 'connect'){
-      console.log("connect response:",jsonData)
+      console.log("connect response:",jsonData.message)
       setCookie("sub",jsonData.sub,1);
       console.log("Sub logged as: ", getCookie("sub"));
       }
