@@ -16,6 +16,7 @@ export async function connectWebSocket() {
     });
 
     socket.addEventListener('message', function (event) {
+      console.log(event.data);
       const jsonData = JSON.parse(event.data);
 
       if(jsonData.returnType === 'error'){
