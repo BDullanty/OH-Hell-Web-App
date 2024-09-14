@@ -13,10 +13,11 @@ export async function connectWebSocket() {
 
     socket.addEventListener('open', function (event) {
       console.log('WebSocket connection opened :)');
+      console.log('On open we got: ',event.data);
     });
 
     socket.addEventListener('message', function (event) {
-      console.log(event.data);
+      console.log("Raw Response: ",event.data);
       const jsonData = JSON.parse(event.data);
 
       if(jsonData.returnType === 'error'){
