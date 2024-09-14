@@ -59,7 +59,7 @@ const connectOnline = () => {
 
 }
 const disconnect = () => {
-  socket.close(1001);
+  socket.close(1000);
 
 
   LobbyListOnCooldown = true;
