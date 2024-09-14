@@ -36,6 +36,7 @@ export async function connectWebSocket() {
 
     socket.addEventListener('close', function (event) {
       console.log('WebSocket connection closed');
+      console.log('Message from server: ',event.data);
     });
 
     socket.addEventListener('error', function (error) {
