@@ -4,7 +4,8 @@ import java.util.HashMap;
 public class Player {
     //Static Values
     //TODO:Change the new Arraylist to load methods that load from Database.
-    private static HashMap<String,Player> playerList = new HashMap();
+    private static HashMap<String,Player> playerList = new HashMap<>();
+    private static HashMap<String,Player> connectionList = new HashMap<>();
     private static ArrayList<Player> onlineList = new ArrayList<>();
 
     //Per Player Values
@@ -15,6 +16,7 @@ public class Player {
     private Player setConnection(String connectionID) {
 
         System.out.println("ConnectionID changed from " + this.connectionID+" to "+connectionID);
+        connectionList.put(connectionID,this);
         this.connectionID = connectionID;
         return this;
     }
@@ -30,6 +32,7 @@ public class Player {
         this.username = username;
         this.sub=sub;
         this.connectionID = connectionID;
+        connectionList.put(connectionID,this);
     }
 
     //STATIC FUNCTIONS
@@ -52,8 +55,10 @@ public class Player {
         if(p==null) throw new IllegalArgumentException("Player p was null");
          Player.onlineList.add(p);
     }
-    public static void removeOnlinePlayer(Player p){
-        Player.onlineList.remove(p);
+    public static Player removeOnlinePlayer(String connectionID){
+        Player offlinePlayer = Player.connectionList.get(connectionID);
+        Player.onlineList.remove(offlinePlayer);
+        return offlinePlayer;
     }
 
 }
