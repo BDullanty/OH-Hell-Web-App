@@ -24,7 +24,7 @@ const Play = () => {
 
           }}
         >
-          Connect to backend
+          reconnect
         </Button>
         <Button
           onClick={() => {
@@ -59,23 +59,16 @@ const connectOnline = () => {
 
 }
 const disconnect = () => {
-  disconnectMessage =
-    JSON.stringify({
-      action: "disconnect",
-      jwk: `${getCookie('jwk')}`
-    });
-
-
-  //send disconnect message first
-  socket.send(disconnectMessage)
   socket.close(1000);
   console.log("Disconnected!");
+
+
   LobbyListOnCooldown = true;
   setTimeout(() => {
     LobbyListOnCooldown = false
   }, cooldownTime);
 
-  window.location.replace(HomePageURL)
+  //window.location.replace(HomePageURL)
 
 }
 export default Play;
