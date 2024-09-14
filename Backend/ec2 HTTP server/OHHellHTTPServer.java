@@ -25,8 +25,6 @@ public class OHHellHttpServer {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             System.out.println("Connections request received");
-
-
             String requestBody = new String(exchange.getRequestBody().readAllBytes());
             Player connectingPlayer = JsonHandler.getPlayerFromBody(requestBody);
 
@@ -66,13 +64,20 @@ public class OHHellHttpServer {
             //If we failed to get a player properly, print so.
             if (disconnectingPlayer == null ) {
                 System.out.println("Bad Disconnect Request.");
-                String response = "{\"error\":\"Bad Disconnect Request\"}";
-
+                String response = "{\"error\":\"Bad Disconnect Request.\"}";
+                exchange.sendResponseHeaders(400, response.getBytes().length);
+                OutputStream os = exchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
             } else {
                 //If our jwk does process into a player and sub,
                 Player.removeOnlinePlayer( disconnectingPlayer);
+                String response = "{\"message\":\"Goodbye\"}";
                 System.out.println("Player Name: " + disconnectingPlayer.getUsername() + ", with Sub ID of:" + disconnectingPlayer.getSub() + " is now disconnected.");
-
+                exchange.sendResponseHeaders(200, response.getBytes().length);
+                OutputStream os = exchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
 
             }
 
