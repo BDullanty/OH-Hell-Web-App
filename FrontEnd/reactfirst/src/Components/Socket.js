@@ -13,7 +13,8 @@ export async function connectWebSocket() {
 
     socket.addEventListener('open', function (event) {
       console.log('WebSocket connection opened :)');
-      console.log('On open we got: ',event.data);
+      console.log('On open we got: ',event);
+      console.log('On open we got: ',event);
     });
 
     socket.addEventListener('message', function (event) {
@@ -37,7 +38,9 @@ export async function connectWebSocket() {
 
     socket.addEventListener('close', function (event) {
       console.log('WebSocket connection closed');
-      console.log('Message from server: ',event.data);
+      console.log('Message from server on close: ',event.reason);
+      console.log('Message from server on close: ',event);
+
     });
 
     socket.addEventListener('error', function (error) {
