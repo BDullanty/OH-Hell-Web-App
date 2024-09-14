@@ -13,10 +13,12 @@
 ###WebGate Wscat
 - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-how-to-call-websocket-api-wscat.html
 
-##### $Context mapping variables
+##### $Context mapping variables (get connection id)
 - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-mapping-template-reference.html
 - https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html#context-variable-reference
 
+##### Sending info to connected clients based on connection ID:
+- https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-how-to-call-websocket-api-connections.html
 ##### Get User info from sub
 - https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ListUsers.html
 - https://stackoverflow.com/questions/43488445/how-do-i-look-up-a-cognito-user-by-their-sub-uuid
