@@ -4,12 +4,12 @@ import java.util.Base64;
 
 public class JsonHandler {
     //Expected String Input:
-    //{"action":"something","jwk":"something"}
+    //{"action":"something","jwk":"something", "connectionID":"something"}
 
     public static Player getPlayerFromBody(String body){
         try {
-            String[] subAndName = JsonHandler.getInfoFromBody(body);
-            return Player.getPlayer(subAndName[0],subAndName[1]);
+            String[] subNameConnID= JsonHandler.getInfoFromBody(body);
+            return Player.getPlayer(subNameConnID[0],subNameConnID[1],subNameConnID[2]);
         } catch (Exception e){
             System.out.println("Error when parsing token...");
             return null;
@@ -22,9 +22,10 @@ public class JsonHandler {
             JSONObject jsonObject = new JSONObject(body);
             // Extract the value associated with the "jwk"
             String jwk = jsonObject.getString("jwk");
-            return decodeJWK(jwk);
+            String[] returnValues = decodeJWK(jwk);
+            returnValues[2] = jsonObject.getString("connectionID");
 
-
+            return returnValues;
     }
 
     private static String[] decodeJWK(String jwk) {
@@ -37,7 +38,7 @@ public class JsonHandler {
 
     private static String[] getValuesFromDecodedJWK(String payload) {
         JSONObject jsonObject = new JSONObject(payload);
-        String[] returnValues = new String[2];
+        String[] returnValues = new String[3];
         // Extract the value associated with the "username" and "sub" key
         returnValues[0] = jsonObject.getString("sub");
         returnValues[1] = jsonObject.getString("username");
