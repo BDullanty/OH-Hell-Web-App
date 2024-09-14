@@ -60,8 +60,6 @@ const connectOnline = () => {
 }
 const disconnect = () => {
   socket.close(1000);
-
-
   LobbyListOnCooldown = true;
   setTimeout(() => {
     LobbyListOnCooldown = false
