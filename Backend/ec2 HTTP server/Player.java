@@ -14,7 +14,7 @@ public class Player {
 
     private Player setConnection(String connectionID) {
 
-        System.out.println("Connection ID changed from" + this.connectionID+" to "+connectionID);
+        System.out.println("ConnectionID changed from " + this.connectionID+" to "+connectionID);
         this.connectionID = connectionID;
         return this;
     }

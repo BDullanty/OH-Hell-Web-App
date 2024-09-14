@@ -39,7 +39,7 @@ public class OHHellHttpServer {
             } else {
                 //If our jwk does process into a player and sub,
                 Player.addPlayerOnline(connectingPlayer);
-                System.out.println("Player Name: " + connectingPlayer.getUsername() + ", with Sub ID of:" + connectingPlayer.getSub() + " is now connected.");
+                System.out.println("Player " + connectingPlayer.getUsername() + " is now connected.");
                 //And return our response
                 String response = "{\"Player\": \"" + connectingPlayer.getUsername() + "\", \"Sub\": \"" + connectingPlayer.getSub() + "\"}";
                 exchange.sendResponseHeaders(200, response.getBytes().length);
@@ -56,8 +56,6 @@ public class OHHellHttpServer {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             System.out.println("Disconnect request received");
-
-
             String requestBody = new String(exchange.getRequestBody().readAllBytes());
             Player disconnectingPlayer = JsonHandler.getPlayerFromBody(requestBody);
 
@@ -73,7 +71,7 @@ public class OHHellHttpServer {
                 //If our jwk does process into a player and sub,
                 Player.removeOnlinePlayer( disconnectingPlayer);
                 String response = "{\"message\":\"Goodbye\"}";
-                System.out.println("Player Name: " + disconnectingPlayer.getUsername() + ", with Sub ID of:" + disconnectingPlayer.getSub() + " is now disconnected.");
+                System.out.println("Player Name: " + disconnectingPlayer.getUsername() + " is now disconnected.");
                 exchange.sendResponseHeaders(200, response.getBytes().length);
                 OutputStream os = exchange.getResponseBody();
                 os.write(response.getBytes());
