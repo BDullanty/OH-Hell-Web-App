@@ -1,6 +1,13 @@
-Catch filter: /.*/
-
-Response Template:
+Filter /200/
 {
-    "body": "$input.path('$.body')"
+  "returnType": "connect",
+  "sub": "\"$input.path('$.sub')\"",
+  "username": "\"$input.path('$.username')\""
+}
+
+Filter /400/
+//Routes status code and body back
+{
+  "error": "$input.path('$.error')",
+  "returnType": "error"
 }
