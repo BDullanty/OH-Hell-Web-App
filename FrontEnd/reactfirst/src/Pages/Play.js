@@ -47,7 +47,6 @@ const connectOnline = () => {
     });
 
   if (!LobbyListOnCooldown) {
-    console.log("Request Json: ", connectMessage);
     socket.send(connectMessage);
     LobbyListOnCooldown = true;
     setTimeout(() => {
