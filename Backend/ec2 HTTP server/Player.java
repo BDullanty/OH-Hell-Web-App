@@ -12,7 +12,12 @@ public class Player {
     private String username;
     private String connectionID;
 
+    private Player setConnection(String connectionID) {
 
+        System.out.println("Connection ID changed from" + this.connectionID+" to "+connectionID);
+        this.connectionID = connectionID;
+        return this;
+    }
     public String getSub() {
         return sub;
     }
