@@ -1,6 +1,8 @@
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -57,28 +59,28 @@ public class OHHellHttpServer {
         public void handle(HttpExchange exchange) throws IOException {
             System.out.println("Disconnect request received");
             String requestBody = new String(exchange.getRequestBody().readAllBytes());
-            Player disconnectingPlayer = JsonHandler.getPlayerFromBody(requestBody);
-
             //If we failed to get a player properly, print so.
-            if (disconnectingPlayer == null ) {
-                System.out.println("Bad Disconnect Request.");
-                String response = "{\"error\":\"Bad Disconnect Request.\"}";
-                exchange.sendResponseHeaders(400, response.getBytes().length);
-                OutputStream os = exchange.getResponseBody();
-                os.write(response.getBytes());
-                os.close();
-            } else {
-                //If our jwk does process into a player and sub,
-                Player.removeOnlinePlayer( disconnectingPlayer);
+            try{
+
+                JSONObject jsonObject = new JSONObject(requestBody);
+                String connectionID = jsonObject.getString("connectionID");
+                Player offlinePlayer =Player.removeOnlinePlayer( connectionID);
                 String response = "{\"message\":\"Goodbye\"}";
-                System.out.println("Player Name: " + disconnectingPlayer.getUsername() + " is now disconnected.");
+                System.out.println("Player Name: " + offlinePlayer.getUsername() + " is now disconnected.");
                 exchange.sendResponseHeaders(200, response.getBytes().length);
                 OutputStream os = exchange.getResponseBody();
                 os.write(response.getBytes());
                 os.close();
 
+            } catch(Exception e){
+                //If our jwk does process into a player and sub,
+                System.out.println("Bad Disconnect Request.");
+                String response = "{\"error\":\"Bad Disconnect Request. If someone was supposed to be offline back here, they are not\"}";
+                exchange.sendResponseHeaders(400, response.getBytes().length);
+                OutputStream os = exchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
             }
-
         }
     }
 
@@ -93,7 +95,6 @@ public class OHHellHttpServer {
             exchange.sendResponseHeaders(200, response.getBytes().length);
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
-
             os.close();
         }
     }
