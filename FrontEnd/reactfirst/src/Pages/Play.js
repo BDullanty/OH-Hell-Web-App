@@ -7,7 +7,6 @@ let LobbyListOnCooldown = false;
 const cooldownTime = 5000;//1000 is one second
 
 let connectMessage;
-let disconnectMessage;
 const Play = () => {
   connectWebSocket();
 
@@ -60,12 +59,7 @@ const connectOnline = () => {
 }
 const disconnect = () => {
   socket.close(1000);
-  LobbyListOnCooldown = true;
-  setTimeout(() => {
-    LobbyListOnCooldown = false
-  }, cooldownTime);
-
-  //window.location.replace(HomePageURL)
+  window.location.replace(HomePageURL)
 
 }
 export default Play;
