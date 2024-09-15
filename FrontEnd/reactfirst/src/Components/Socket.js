@@ -3,6 +3,7 @@ import {getCookie} from './cookies';
 export let socket = null;
 export async function connectWebSocket() {
   const token = getCookie('access_token');
+  console.log(token);
   try {
   const url = "wss://sbokdz62pc.execute-api.us-west-1.amazonaws.com/production?Authorization="+token;
 
