@@ -1,3 +1,5 @@
+package HTTPHandlers;
+import GameHandlers.Player;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
@@ -16,7 +18,6 @@ public class OHHellHttpServer {
         server.createContext("/Disconnect", new DisconnectHandler());
         server.createContext("/ListPlayers", new ListPlayers());
         server.createContext("/PlayCard", new PlayCardHandler());
-
         server.setExecutor(null); // Creates a default executor
         server.start();
         System.out.println("HTTP server started on port 8080");
@@ -27,29 +28,10 @@ public class OHHellHttpServer {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             System.out.println("Connections request received");
-            String requestBody = new String(exchange.getRequestBody().readAllBytes());
-            Player connectingPlayer = JsonHandler.getPlayerFromBody(requestBody);
 
-            //If we failed to get a player properly, return 404
-            if (connectingPlayer == null) {
-                System.out.println("Bad Connect Request.");
-                String response = "{\"error\":\"Bad Connect Request\"}";
-                exchange.sendResponseHeaders(400, response.getBytes().length);
-                OutputStream os = exchange.getResponseBody();
-                os.write(response.getBytes());
-                os.close();
-            } else {
-                //If our jwk does process into a player and sub,
-                Player.addPlayerOnline(connectingPlayer);
-                System.out.println("Player " + connectingPlayer.getUsername() + " is now connected.");
-                //And return our response
-                String response = "{\"Player\": \"" + connectingPlayer.getUsername() + "\", \"Sub\": \"" + connectingPlayer.getSub() + "\"}";
-                exchange.sendResponseHeaders(200, response.getBytes().length);
-                OutputStream os = exchange.getResponseBody();
-                os.write(response.getBytes());
-                os.close();
+            String response = JsonHandler.getConnectionResultsFromExchange(exchange);
 
-            }
+            System.out.println("Result sent:"+ response);
 
         }
     }
@@ -64,9 +46,9 @@ public class OHHellHttpServer {
 
                 JSONObject jsonObject = new JSONObject(requestBody);
                 String connectionID = jsonObject.getString("connectionID");
-                Player offlinePlayer =Player.removeOnlinePlayer( connectionID);
+                Player offlinePlayer = Player.removeOnlinePlayer( connectionID);
                 String response = "{\"message\":\"Goodbye\"}";
-                System.out.println("Player Name: " + offlinePlayer.getUsername() + " is now disconnected.");
+                System.out.println("GameHandler.Player Name: " + offlinePlayer.getUsername() + " is now disconnected.");
                 exchange.sendResponseHeaders(200, response.getBytes().length);
                 OutputStream os = exchange.getResponseBody();
                 os.write(response.getBytes());
@@ -104,7 +86,7 @@ public class OHHellHttpServer {
         public void handle(HttpExchange exchange) throws IOException {
             String response = "Players are:";
             String requestBody = new String(exchange.getRequestBody().readAllBytes());
-            System.out.println("Player list requested" + requestBody);
+            System.out.println("GameHandler.Player list requested" + requestBody);
             exchange.sendResponseHeaders(200, response.getBytes().length);
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
