@@ -16,11 +16,13 @@ export async function connectWebSocket() {
     socket.addEventListener('message', function (event) {
       console.log("Raw Response: ",event.data);
       const jsonData = JSON.parse(event.data);
+      console.log("ReturnType:  ",jsonData.returnType)
       //TODO: change below to switch case for returnType parsing.
       if(jsonData.returnType === 'error'){
-      console.log("ReturnType: error, message: ",jsonData.error)
+      console.log("Error Message: ",jsonData.error)
       }
       else{
+        console.log("Response Data:  ",jsonData.data)
       }
     });
 

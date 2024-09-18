@@ -1,3 +1,5 @@
+package GameHandlers;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,7 +10,7 @@ public class Player {
     private static HashMap<String,Player> connectionList = new HashMap<>();
     private static ArrayList<Player> onlineList = new ArrayList<>();
 
-    //Per Player Values
+    //Per GameHandler.Player Values
     private String sub;
     private String username;
     private String connectionID;
@@ -52,7 +54,7 @@ public class Player {
 
 
     public static void addPlayerOnline(Player p){
-        if(p==null) throw new IllegalArgumentException("Player p was null");
+        if(p==null) throw new IllegalArgumentException("GameHandler.Player p was null");
          Player.onlineList.add(p);
     }
     public static Player removeOnlinePlayer(String connectionID){
