@@ -1,4 +1,6 @@
 package HTTPHandlers;
+import GameHandlers.GameHandler;
+import GameHandlers.User;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
@@ -57,9 +59,10 @@ public class HTTPServer {
     static class ListPlayers implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            String response = "Players are:";
             String requestBody = new String(exchange.getRequestBody().readAllBytes());
-            System.out.println("GameHandler.Player list requested" + requestBody);
+            System.out.println("Player list requested: " + requestBody);
+            String response = "Lobby Players are: "+ User.getUsers();
+            System.out.println("PlayerList Response:"+response);
             exchange.sendResponseHeaders(200, response.getBytes().length);
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
