@@ -1,12 +1,12 @@
 
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { connectWebSocket, socket } from '../Components/Socket';
 import { getCookie } from '../Components/cookies';
 const HomePageURL = "https://main.dmqlib7blr1by.amplifyapp.com/";
 let LobbyListOnCooldown = false;
 const cooldownTime = 5000;//1000 is one second
 
-let connectMessage;
+let username = getCookie("username");
 const Play = () => {
   connectWebSocket();
 
@@ -14,16 +14,17 @@ const Play = () => {
     <div className="App">
 
       <header className="App-header">
-
+        <Box>
+        {username = null? "loading": {username}}
+        </Box>
 
         <Button
           onClick={() => {
-
-            connectOnline();
-
+            connectWebSocket();
+            requestLobbyList();
           }}
         >
-          reconnect
+          Refresh Lobbies
         </Button>
         <Button
           onClick={() => {
@@ -39,11 +40,10 @@ const Play = () => {
 
 }
 
-const connectOnline = () => {
-  connectMessage =
+const requestLobbyList = () => {
+  const connectMessage =
     JSON.stringify({
-      action: "connect",
-      jwk: `${getCookie('access_token')}`
+      action: "lobbyList"
     });
 
   if (!LobbyListOnCooldown) {
