@@ -1,0 +1,14 @@
+//Name can be anything. Content Type is application/json
+
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+   "action": {
+        "type": "string",
+        "description": "Expected to be listPlayers"
+     }
+    },
+  "required": ["action"],
+  "additionalProperties": false
+}
