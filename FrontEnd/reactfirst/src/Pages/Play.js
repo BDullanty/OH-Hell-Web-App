@@ -1,5 +1,5 @@
 
-import { Box, Button } from '@mui/material';
+import { Card, Button } from '@mui/material';
 import { connectWebSocket, socket } from '../Components/Socket';
 import { getCookie } from '../Components/cookies';
 const HomePageURL = "https://main.dmqlib7blr1by.amplifyapp.com/";
@@ -51,7 +51,7 @@ const requestLobbyList = () => {
       LobbyListOnCooldown = false
     }, cooldownTime);
   }
-
+}
   const requestPlayerList = () => {
     const connectMessage =
       JSON.stringify({
@@ -71,4 +71,5 @@ const disconnect = () => {
   window.location.replace(HomePageURL)
 
 }
+
 export default Play;
