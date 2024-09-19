@@ -23,7 +23,7 @@ const Play = () => {
             requestPlayerList();
           }}
         >
-          Refresh Lobbies
+          Request PlayerList
         </Button>
         <Button
           onClick={() => {
@@ -55,7 +55,7 @@ const requestLobbyList = () => {
   const requestPlayerList = () => {
     const connectMessage =
       JSON.stringify({
-        action: "playerList"
+        action: "listPlayers"
       });
     if (!LobbyListOnCooldown) {
       socket.send(connectMessage);
