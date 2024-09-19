@@ -15,6 +15,15 @@ public class GameHandler {
     public static Game getGame(int gameID){
         return lobbyGames.get(gameID);
     }
+
+    public static void start(Game game){
+
+        game.setState(State.INGAME);
+        //to start game, we will set the state to in game
+    }
+    public static void bet(Player p, int bet){
+
+    }
     public static void addGameToLobby(Game game){
 
         lobbyGames.put(game.getGameID(),game);
