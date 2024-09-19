@@ -9,6 +9,7 @@ public class Game {
     //Games are stored in a hashmap with Key as gameID
     private static HashMap<Integer, Game> lobbyGames = new HashMap<Integer, Game>();
     private static HashMap<Integer, Game> liveGames = new HashMap<Integer, Game>();
+
     private static HashMap<Integer, Game> finishedGames = new HashMap<Integer, Game>();
     public static int IDTracker;
     //NonStatic:
@@ -28,4 +29,15 @@ public class Game {
 
     }
 
+    public void startGame(){
+
+    }
+    public void endGame(){
+
+    }
+
+    //Static functions:
+    public static Game getGame(int gameID){
+        return lobbyGames.get(gameID);
+    }
 }
