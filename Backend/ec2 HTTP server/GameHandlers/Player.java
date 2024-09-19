@@ -59,7 +59,8 @@ public class Player {
 
     public static void addPlayerOnline(Player p){
         if(p==null) throw new IllegalArgumentException("Player was null");
-         Player.onlineList.add(p);
+        if(onlineList.contains(p)) System.out.println("Player was already online? This is a bug.");
+        Player.onlineList.add(p);
     }
     public static Player removeOnlinePlayer(String connectionID){
         Player offlinePlayer = Player.connectionList.get(connectionID);
