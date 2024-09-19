@@ -14,7 +14,7 @@ const Play = () => {
     <div className="App">
 
       <header className="App-header">
-        <Card>
+        <Card variant="outlined">
         {username = null? "loading": username}
         </Card>
 
