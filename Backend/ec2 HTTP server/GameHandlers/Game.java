@@ -6,11 +6,17 @@ import java.util.HashMap;
 public class Game {
     public static int IDTracker;
     //NonStatic:
-    Deck deck;
-    ArrayList<Player> players;
-    Player host;
-    HashMap<Player,ArrayList<Card>> playerHands;
     private int gameID;
+    private ArrayList<Player> players;
+    private Enum state;
+    private Deck deck;
+
+    private int playerTurn;
+    private Player host;
+
+    private HashMap<Player,ArrayList<Card>> playerHands;
+    private int[] bets;
+
 
     public Game(Player host){
 
@@ -18,18 +24,31 @@ public class Game {
         this.players.add(host);
         this.host = host;
         this.deck = new Deck();
+        this.state = State.LOBBY;
+        this.playerTurn = 0;
+        this.bets = new int[5];
+        this.playerHands = new HashMap<>();
         GameHandler.addGameToLobby(this);
 
     }
     public int getGameID(){
         return this.gameID;
     }
+    public void addPlayer(Player p){
+        this.players.add(p);
+    }
+    public void removePlayer(Player p){
+        this.players.remove(p);
+        if(this.players.isEmpty()) endGame();
+    }
 
     public void startGame(){
-
+        GameHandler.start(this);
     }
     public void endGame(){
 
     }
-
+    public void setState(State state) {
+        this.state= state;
+    }
 }
