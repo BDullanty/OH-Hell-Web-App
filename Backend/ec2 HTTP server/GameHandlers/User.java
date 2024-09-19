@@ -11,6 +11,7 @@ public class User extends Player{
     protected static HashMap<String,User> connectionList = new HashMap<>();
     protected  static ArrayList<User> onlineList = new ArrayList<>();
     protected String sub;
+    public Enum state;
     protected static HashMap<String,User> userList = new HashMap<>();
     protected String connectionID;
 
@@ -24,6 +25,7 @@ public class User extends Player{
         this.sub=sub;
         this.connectionID = connectionID;
         User.connectionList.put(connectionID,this);
+        this.state = State.LOBBY;
     }
 
     public static User getUser(String connectionID) {
@@ -66,11 +68,13 @@ public class User extends Player{
     public static void addUserOnline(User p){
         if(p==null) throw new IllegalArgumentException("Player was null");
         if(onlineList.contains(p)) System.out.println("Player was already online? This is a bug.");
+        p.state= State.LOBBY;
         User.onlineList.add(p);
     }
     public static User removeOnlineUser(String connectionID){
         User offlineUser = User.connectionList.get(connectionID);
         System.out.println("Player " +offlineUser.getUsername()+ " has gone offline.");
+        offlineUser.state= State.FINISHED;
         User.onlineList.remove(offlineUser);
         return offlineUser;
     }
