@@ -1,0 +1,12 @@
+Filter /200/
+{
+  "returnType": "playerList",
+  "users": $input.body
+}
+
+Filter /400/
+//Routes status code and body back
+{
+  "error": "$input.path('$.error')",
+  "returnType": "error"
+}
