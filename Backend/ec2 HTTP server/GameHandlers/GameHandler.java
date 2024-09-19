@@ -4,6 +4,11 @@ import java.util.HashMap;
 
 public class GameHandler {
 
+    public static String getLobbyGames() {
+        return lobbyGames.values().toString();
+    }
+
+
     //TODO: change to load from backend
     //Static:
     //Games are stored in a hashmap with Key as gameID
