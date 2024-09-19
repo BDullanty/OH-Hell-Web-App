@@ -1,5 +1,6 @@
 package HTTPHandlers;
 
+import GameHandlers.Player;
 import com.sun.net.httpserver.HttpExchange;
 import org.json.JSONObject;
 
@@ -8,23 +9,27 @@ import java.util.ArrayList;
 import java.util.Base64;
 
 public class ExchangeHandler {
-
     public static JSONObject getInfoJsonFromExchange(HttpExchange exchange) throws IOException {
 
         String body = new String(exchange.getRequestBody().readAllBytes());
         // Parse the JSON string
         JSONObject jsonObject = new JSONObject(body);
         ArrayList<String> returnValues = new ArrayList<>();
-        // Extract the value associated with the "jwk"
-        String jwk = jsonObject.getString("jwk");
-        String[] subAndName = decodeJWK(jwk);
+        // Decide if we get info from JWK or from connectionID
+        if(jsonObject.has("jwk")) {
+            String jwk = jsonObject.getString("jwk");
+            String[] subAndName = decodeJWK(jwk);
 
-        returnValues.add(subAndName[0]);
-        returnValues.add(subAndName[1]);
-
-        jsonObject.remove(jwk);
-        jsonObject.put("sub",subAndName[0]);
-        jsonObject.put("name",subAndName[1]);
+            returnValues.add(subAndName[0]);
+            returnValues.add(subAndName[1]);
+            jsonObject.put("sub",subAndName[0]);
+            jsonObject.put("username",subAndName[1]);
+            jsonObject.remove(jwk);
+        } else if(jsonObject.has("connectionID")){
+            Player p = Player.getPlayer(jsonObject.getString("connectionID"));
+            jsonObject.put("name",p.getUsername());
+            jsonObject.put("sub",p.getSub());
+        }
 
         return jsonObject;
     }
