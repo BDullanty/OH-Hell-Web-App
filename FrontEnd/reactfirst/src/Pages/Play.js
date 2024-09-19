@@ -44,7 +44,6 @@ const requestLobbyList = () => {
     JSON.stringify({
       action: "lobbyList"
     });
-    connectWebSocket();
   if (!LobbyListOnCooldown) {
     socket.send(connectMessage);
     LobbyListOnCooldown = true;
