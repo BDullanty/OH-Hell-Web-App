@@ -8,6 +8,8 @@ public class Game {
     //Static:
     //Games are stored in a hashmap with Key as gameID
     private static HashMap<Integer, Game> lobbyGames = new HashMap<Integer, Game>();
+    private static HashMap<Integer, Game> liveGames = new HashMap<Integer, Game>();
+    private static HashMap<Integer, Game> finishedGames = new HashMap<Integer, Game>();
     public static int IDTracker;
     //NonStatic:
     Deck deck;
