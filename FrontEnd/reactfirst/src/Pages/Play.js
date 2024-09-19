@@ -15,7 +15,7 @@ const Play = () => {
 
       <header className="App-header">
         <Box>
-        {username = null? "loading": {username}}
+        {username = null? "loading": username}
         </Box>
 
         <Button
