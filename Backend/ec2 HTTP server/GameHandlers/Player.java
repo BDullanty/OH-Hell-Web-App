@@ -15,6 +15,10 @@ public class Player {
     private String username;
     private String connectionID;
 
+    public static Player getPlayer(String connectionID) {
+        return connectionList.get(connectionID);
+    }
+
     private Player setConnection(String connectionID) {
 
         System.out.println("ConnectionID changed from " + this.connectionID+" to "+connectionID);
