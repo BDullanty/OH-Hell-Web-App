@@ -2,6 +2,7 @@ package GameHandlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
 public class User extends Player{
     //Per GameHandler.Player Values
@@ -9,7 +10,7 @@ public class User extends Player{
     //Static Values
     //TODO:Change the new Arraylist to load methods that load from Database.
     protected static HashMap<String,User> connectionList = new HashMap<>();
-    protected  static ArrayList<User> onlineList = new ArrayList<>();
+    protected  static Stack<User> onlineList = new Stack<>();
     protected String sub;
     public Enum state;
     protected static HashMap<String,User> userList = new HashMap<>();
@@ -78,6 +79,12 @@ public class User extends Player{
         User.onlineList.remove(offlineUser);
         return offlineUser;
     }
-
+    public static String getUsers(){
+        String returnString = "";
+        for(int i =0; i < onlineList.size();i++){
+            returnString+=onlineList.elementAt(i);
+        }
+        return returnString;
+    }
 
 }
