@@ -46,7 +46,7 @@ public class Game {
         GameHandler.start(this);
     }
     public void endGame(){
-
+        GameHandler.end(this);
     }
     public void setState(State state) {
         this.state= state;
