@@ -1,5 +1,5 @@
 
-import { Card, Button } from '@mui/material';
+import { Card,CardContent,CardActions, Button } from '@mui/material';
 import { connectWebSocket, socket } from '../Components/Socket';
 import { getCookie } from '../Components/cookies';
 const HomePageURL = "https://main.dmqlib7blr1by.amplifyapp.com/";
@@ -19,7 +19,7 @@ const Play = () => {
           {username = null? "loading": username}
           ^ is this your user name?
           </CardContent>
-          
+
           <CardActions>
           </CardActions>
 
