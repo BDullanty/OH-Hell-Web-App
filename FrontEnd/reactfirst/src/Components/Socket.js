@@ -18,6 +18,9 @@ export async function connectWebSocket() {
       if(jsonData.returnType === 'error'){
       console.log("Error Message: ",jsonData.error)
       }
+      else if(jsonData.returnType ==='lobbyList'){
+      console.log("Lobby list inbound: ",jsonData.lobbyList);
+      }
       else{
         console.log("Response Data:  ",jsonData.data)
       }
