@@ -15,7 +15,14 @@ const Play = () => {
 
       <header className="App-header">
         <Card variant="outlined">
-        {username = null? "loading": username}
+          <CardContent>
+          {username = null? "loading": username}
+          ^ is this your user name?
+          </CardContent>
+          
+          <CardActions>
+          </CardActions>
+
         </Card>
 
         <Button
