@@ -1,5 +1,7 @@
 package GameHandlers;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
@@ -80,11 +82,16 @@ public class User extends Player{
         return offlineUser;
     }
     public static String getUsers(){
-        String returnString = "";
+        JSONObject users = new JSONObject();
+        System.out.println("Checking for players...");
         for(int i =0; i < onlineList.size();i++){
-            returnString+=onlineList.elementAt(i);
+            User u = onlineList.elementAt(i);
+            System.out.println("Found player "+u.getUsername());
+            users.put(u.getUsername(),u.getState().toString());
         }
-        return returnString;
+       return users.toString();
+    }
+
     private Enum getState() {
         return this.state;
     }

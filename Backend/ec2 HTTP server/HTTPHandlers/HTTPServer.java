@@ -61,7 +61,7 @@ public class HTTPServer {
         public void handle(HttpExchange exchange) throws IOException {
             String requestBody = new String(exchange.getRequestBody().readAllBytes());
             System.out.println("Player list requested: " + requestBody);
-            String response = "Lobby Players are: "+ User.getUsers();
+            String response = User.getUsers();
             System.out.println("PlayerList Response:"+response);
             exchange.sendResponseHeaders(200, response.getBytes().length);
             OutputStream os = exchange.getResponseBody();
