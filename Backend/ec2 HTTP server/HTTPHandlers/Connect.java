@@ -22,11 +22,13 @@ public class Connect {
             Player connectingPlayer = getPlayerFromBody(infoJson);
             //If  our jwk does process into a player and sub,
             Player.addPlayerOnline(connectingPlayer);
-            System.out.println("GameHandler.Player " + connectingPlayer.getUsername() + " is now connected.");
+            System.out.println("Player " + connectingPlayer.getUsername() + " is now connected.");
             //And return our response
-            response = "{\"GameHandler.Player\": \"" + connectingPlayer.getUsername() + "\", \"Sub\": \"" + connectingPlayer.getSub() + "\"}";
+            response = "{\"Player\": \"" + connectingPlayer.getUsername() + "\"}";
             exchange.sendResponseHeaders(200, response.getBytes().length);
             OutputStream os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
 
         } catch (Exception e) {
             //If we failed to get a player properly, return 400
