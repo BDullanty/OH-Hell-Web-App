@@ -26,7 +26,7 @@ export async function connectWebSocket() {
       }
     });
     socket.addEventListener('open', function (event) {
-      console.log('Connection Established',event);
+      console.log('Connection Established');
     });
 
     socket.addEventListener('close', function (event) {
