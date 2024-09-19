@@ -14,13 +14,13 @@ const Play = () => {
     <div className="App">
 
       <header className="App-header">
-        <Box>
+        <Card>
         {username = null? "loading": username}
-        </Box>
+        </Card>
 
         <Button
           onClick={() => {
-            requestLobbyList();
+            requestPlayerList();
           }}
         >
           Refresh Lobbies
@@ -52,6 +52,18 @@ const requestLobbyList = () => {
     }, cooldownTime);
   }
 
+  const requestPlayerList = () => {
+    const connectMessage =
+      JSON.stringify({
+        action: "playerList"
+      });
+    if (!LobbyListOnCooldown) {
+      socket.send(connectMessage);
+      LobbyListOnCooldown = true;
+      setTimeout(() => {
+        LobbyListOnCooldown = false
+      }, cooldownTime);
+    }
 
 }
 const disconnect = () => {
