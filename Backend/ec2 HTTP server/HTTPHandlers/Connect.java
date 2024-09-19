@@ -1,5 +1,6 @@
 package HTTPHandlers;
 
+import GameHandlers.User;
 import com.sun.net.httpserver.HttpExchange;
 import org.json.JSONObject;
 import GameHandlers.Player;
@@ -19,9 +20,9 @@ public class Connect {
         try {
             //parse exhange into json with info.
             JSONObject infoJson = getInfoJsonFromExchange(exchange);
-            Player connectingPlayer = getPlayerFromBody(infoJson);
+            User connectingPlayer = getUserFromBody(infoJson);
             //If  our jwk does process into a player and sub,
-            Player.addPlayerOnline(connectingPlayer);
+            User.addUserOnline(connectingPlayer);
             System.out.println("Player " + connectingPlayer.getUsername() + " is now connected.");
             //And return our response
             response = "{\"Player\": \"" + connectingPlayer.getUsername() + "\"}";
@@ -42,9 +43,9 @@ public class Connect {
         return response;
     }
 
-    public static Player getPlayerFromBody(JSONObject infoJson) {
+    public static User getUserFromBody(JSONObject infoJson) {
         try {
-            return Player.getPlayer(infoJson.getString("sub"), infoJson.getString("username"), infoJson.getString("connectionID"));
+            return User.getUser(infoJson.getString("sub"), infoJson.getString("username"), infoJson.getString("connectionID"));
         } catch (Exception e) {
             System.out.println("Error when creating player.." + e);
             return null;

@@ -1,6 +1,7 @@
 package HTTPHandlers;
 
 import GameHandlers.Player;
+import GameHandlers.User;
 import com.sun.net.httpserver.HttpExchange;
 import org.json.JSONObject;
 
@@ -26,7 +27,7 @@ public class ExchangeHandler {
             jsonObject.put("username",subAndName[1]);
             jsonObject.remove(jwk);
         } else if(jsonObject.has("connectionID")){
-            Player p = Player.getPlayer(jsonObject.getString("connectionID"));
+            User p = User.getUser(jsonObject.getString("connectionID"));
             jsonObject.put("name",p.getUsername());
             jsonObject.put("sub",p.getSub());
         }

@@ -1,6 +1,7 @@
 package HTTPHandlers;
 
 import GameHandlers.Player;
+import GameHandlers.User;
 import com.sun.net.httpserver.HttpExchange;
 import org.json.JSONObject;
 
@@ -14,7 +15,7 @@ public class Disconnect {
     public static void disconnectPlayer(HttpExchange exchange)throws IOException {
         try{
             JSONObject infoJson = ExchangeHandler.getInfoJsonFromExchange(exchange);
-            Player.removeOnlinePlayer(infoJson.getString("connectionID"));
+            User.removeOnlineUser(infoJson.getString("connectionID"));
         }catch (Exception e){
             System.out.println("Error in disconnect: "+e);
         }
