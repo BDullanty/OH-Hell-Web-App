@@ -85,6 +85,8 @@ public class User extends Player{
             returnString+=onlineList.elementAt(i);
         }
         return returnString;
+    private Enum getState() {
+        return this.state;
     }
 
 }
