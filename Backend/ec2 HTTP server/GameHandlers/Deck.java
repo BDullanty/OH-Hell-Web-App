@@ -9,4 +9,17 @@ public class Deck {
     public void shuffle(){
         Collections.shuffle(deck);
     }
+    @Override
+    public String toString() {
+        String returnString = "";
+        boolean first = true;
+        for (Card card : deck) {
+            if (first) {
+                first = false;
+                returnString += card.toString();
+            }
+            returnString += ", " + card.toString();
+        }
+        return returnString;
+    }
 }
