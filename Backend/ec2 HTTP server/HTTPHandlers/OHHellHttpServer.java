@@ -26,26 +26,17 @@ public class OHHellHttpServer {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             System.out.println("Connections request received");
-            String response = ConnectionEstablisher.connectPlayer(exchange);
+            String response = Connect.connectPlayer(exchange);
             System.out.println("Result sent:"+ response);
-
         }
     }
-    //handles the disconnect call. We return nothing here, as nothing can be returned.
+
     static class DisconnectHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             System.out.println("Disconnect request received");
-            String requestBody = new String(exchange.getRequestBody().readAllBytes());
-            //If we failed to get a player properly, print so.
-            try{
-               // DisconnectEstablisher.disconnectPlayer(exchange);
+            Disconnect.disconnectPlayer(exchange);
 
-
-            } catch(Exception e){
-                //If our jwk does process into a player and sub,
-                System.out.println("Bad Disconnect Request.");
-            }
         }
     }
 
