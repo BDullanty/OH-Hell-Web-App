@@ -32,4 +32,8 @@ public class Card {
             return Suits.CLUB;
         }
     }
+    @Override
+    public String toString(){
+        return value+ " of " + suit.toString().toLowerCase()+"s";
+    }
 }
