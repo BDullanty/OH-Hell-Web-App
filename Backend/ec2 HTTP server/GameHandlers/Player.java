@@ -58,11 +58,12 @@ public class Player {
 
 
     public static void addPlayerOnline(Player p){
-        if(p==null) throw new IllegalArgumentException("GameHandler.Player p was null");
+        if(p==null) throw new IllegalArgumentException("Player was null");
          Player.onlineList.add(p);
     }
     public static Player removeOnlinePlayer(String connectionID){
         Player offlinePlayer = Player.connectionList.get(connectionID);
+        System.out.println("Player " +offlinePlayer.getUsername()+ " has gone offline.");
         Player.onlineList.remove(offlinePlayer);
         return offlinePlayer;
     }
