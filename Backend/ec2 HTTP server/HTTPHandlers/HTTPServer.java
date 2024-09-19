@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
-public class OHHellHttpServer {
+public class HTTPServer {
 
     public static void main(String[] args) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
@@ -34,9 +34,8 @@ public class OHHellHttpServer {
     static class DisconnectHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            System.out.println("Disconnect request received");
+            System.out.println("Disconnect request received.");
             Disconnect.disconnectPlayer(exchange);
-
         }
     }
 
