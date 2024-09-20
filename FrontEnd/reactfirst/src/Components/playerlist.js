@@ -1,6 +1,6 @@
 import {setCookie} from './cookies';
 
-let socket = null;
+export let playerlist = null;
 
 export async function updateLobbyList(jsonData) {
   

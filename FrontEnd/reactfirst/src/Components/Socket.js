@@ -1,4 +1,5 @@
 import {getCookie} from './cookies';
+import {updateLobbyList} from './playerlist';
 
 export let socket = null;
 
@@ -20,10 +21,12 @@ export async function connectWebSocket() {
       }
       else if(jsonData.returnType ==='lobbyList'){
       console.log("Lobby list inbound: ",jsonData.lobbyList);
+      
       }
-      else if(jsonData.returnType ==='PlayerList'){
+      else if(jsonData.returnType ==='playerList'){
         console.log("Player list inbound: ",jsonData.playerList);
-        }
+        updateLobbyList(jsonData);  
+      }
       else{
         console.log("Response Data:  ",jsonData.data)
       }
