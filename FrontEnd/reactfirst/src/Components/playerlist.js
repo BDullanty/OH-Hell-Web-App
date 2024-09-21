@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, ListItem, ListItemText, Typography } from '@mui/material';
 import {socket} from './Socket';
-const PlayerList = ({ users }) => {
+export const PlayerList = ({ users }) => {
   return (
     <div>
       <Typography variant="h6">Player List</Typography>
@@ -22,4 +22,4 @@ export const requestPlayerList = () => {
     });
     socket.send(connectMessage);
 }
-export default PlayerList;
+
