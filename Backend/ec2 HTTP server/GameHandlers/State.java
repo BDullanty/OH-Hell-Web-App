@@ -3,5 +3,6 @@ package GameHandlers;
 public enum State {
     LOBBY,
     INGAME,
-    FINISHED
+    COMPLETED,
+    OFFLINE
 }

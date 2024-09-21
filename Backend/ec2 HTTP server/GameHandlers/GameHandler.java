@@ -53,7 +53,7 @@ public class GameHandler {
     }
     public static void end(Game game){
 
-        game.setState(State.FINISHED);
+        game.setState(State.COMPLETED);
         //to start game, we will set the state to in game
         liveGames.remove(game.getGameID());
         finishedGames.put(game.getGameID(),game);
