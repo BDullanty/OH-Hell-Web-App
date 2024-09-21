@@ -17,7 +17,7 @@
 ### $Context Mapping Variables (Get Connection ID)
 - [WebSocket API Mapping Template Reference](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-mapping-template-reference.html)
 - [API Gateway Mapping Template Reference](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html#context-variable-reference)
-
+https://docs.aws.amazon.com/apigateway/latest/developerguide/security_iam_service-with-iam.html
 ### Sending Info to Connected Clients Based on Connection ID
 - [How to Call WebSocket API Connections](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-how-to-call-websocket-api-connections.html)
 
@@ -26,5 +26,6 @@
 - [How to Look Up a Cognito User by Their Sub UUID](https://stackoverflow.com/questions/43488445/how-do-i-look-up-a-cognito-user-by-their-sub-uuid)
 
 ## EC2
+- [Send Messages Back To Clients](https://docs.aws.amazon.com/apigateway/latest/developerguide/security_iam_service-with-iam.html)
 - [Installing Amazon Corretto on Amazon Linux](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/amazon-linux-install.html)
 - [Linux File Transfer using SCP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/linux-file-transfer-scp.html)
