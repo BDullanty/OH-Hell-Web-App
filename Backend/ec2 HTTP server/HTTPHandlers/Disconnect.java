@@ -15,7 +15,7 @@ public class Disconnect {
     public static void disconnectPlayer(HttpExchange exchange)throws IOException {
         try{
             JSONObject infoJson = ExchangeHandler.getInfoJsonFromExchange(exchange);
-            User.removeOnlineUser(infoJson.getString("connectionID"));
+            User.removeConnection(infoJson.getString("connectionID"));
         }catch (Exception e){
             System.out.println("Error in disconnect: "+e);
         }

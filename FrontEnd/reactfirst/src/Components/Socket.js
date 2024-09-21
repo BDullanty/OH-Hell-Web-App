@@ -1,6 +1,7 @@
 
 import { getCookie } from './cookies';
 import { updateLobbyList } from './playerlist';
+import { requestPlayerList } from './playerlist';
 
 export let socket = null;
 
