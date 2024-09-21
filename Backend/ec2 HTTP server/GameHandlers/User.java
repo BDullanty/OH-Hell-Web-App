@@ -37,6 +37,21 @@ public class User extends Player{
         return User.connectionList.get(connectionID);
     }
 
+    public static ArrayList<String> getLobbyConnections() {
+        ArrayList<String> connections = new ArrayList<>();
+        // for each player in lobby
+        for(int i = 0; i < onlineList.size();i++){
+            User u =onlineList.get(i);
+            if(u.state==State.LOBBY){
+                //For each connection this player has
+                for(int j = 0; j <u.connectionID.size(); j++){
+                    connections.add(u.connectionID.get(j));
+                }
+            }
+        }
+        return connections;
+    }
+
     private User addConnection(String connectionID) {
         User.connectionList.put(connectionID,this);
         this.connectionID.add(connectionID);
