@@ -1,30 +1,27 @@
+import React, { useState, useEffect } from 'react';
 
-import { Card,CardContent,CardActions, Button } from '@mui/material';
+import {  Button } from '@mui/material';
 import { connectWebSocket, socket } from '../Components/Socket';
 import { getCookie } from '../Components/cookies';
-import {playerList} from '../Components/playerlist';
+import PlayerList from '../Components/playerlist';
 const HomePageURL = "https://main.dmqlib7blr1by.amplifyapp.com/";
 let LobbyListOnCooldown = false;
 const cooldownTime = 5000;//1000 is one second
 
 let username = getCookie("username");
 const Play = () => {
-  connectWebSocket();
+  const [users, setUsers] = useState({});
 
+  useEffect(() => {
+    connectWebSocket(setUsers); // Pass state setters directly
+  }, []);
   return (
     <div className="App">
 
       <header className="App-header">
-        <Card variant="outlined">
-          <CardContent>
-          {username = null? "loading": username}
-          ^ is this your user name?
-          </CardContent>
+      <h1>Play Page</h1>
+      <PlayerList users={users} />
 
-          <CardActions>
-          </CardActions>
-
-        </Card>
 
         <Button
           onClick={() => {
