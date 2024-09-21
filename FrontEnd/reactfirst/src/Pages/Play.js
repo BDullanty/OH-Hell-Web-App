@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {  Button } from '@mui/material';
 import { connectWebSocket, socket } from '../Components/Socket';
 import { getCookie } from '../Components/cookies';
-import {PlayerList, requestPlayerList} from '../Components/playerlist';
+import {PlayerList} from '../Components/playerlist';
 const HomePageURL = "https://main.dmqlib7blr1by.amplifyapp.com/";
 let LobbyListOnCooldown = false;
 const cooldownTime = 5000;//1000 is one second
@@ -23,13 +23,6 @@ const Play = () => {
       <PlayerList users={users} className="userList"/>
 
 
-        <Button
-          onClick={() => {
-            requestPlayerList();
-          }}
-        >
-          Request PlayerList
-        </Button>
         <Button
           onClick={() => {
             disconnect();

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Paper,List, ListItem, ListItemText, Typography } from '@mui/material';
-import {socket} from './Socket';
 export const PlayerList = ({ users }) => {
   return (
     <div>
@@ -17,11 +16,5 @@ export const PlayerList = ({ users }) => {
     </div>
   );
 };
-export const requestPlayerList = () => {
-  const connectMessage =
-    JSON.stringify({
-      action: "listPlayers"
-    });
-    socket.send(connectMessage);
-}
+
 

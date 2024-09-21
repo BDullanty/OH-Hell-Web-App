@@ -35,7 +35,6 @@ export async function connectWebSocket(setUsers) {
     });
     socket.addEventListener('open', function (event) {
       console.log('Connection Established');
-      requestPlayerList();
     });
 
     socket.addEventListener('close', function (event) {
