@@ -9,6 +9,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
@@ -24,6 +25,7 @@ public class AWSSigner {
     private static final String AWS_SECRET_ACCESS_KEY = AWSACCESSKEY.AWS_SECRET_ACCESS_KEY;
     private static final String RESTAPIHOST = AWSACCESSKEY.RESTAPIHOST;
     private static final String RESTAPIPATH = "/production/@connections/";
+    private static final String ENCODEDRESTAPIPATH = "/production/%40connections/";
 
     private static final String METHOD = "POST";
     private static final String SERVICE = "execute-api";
@@ -39,8 +41,8 @@ public class AWSSigner {
 
         // Create the canonical request
         String canonicalQuerystring = "";
-        String canonicalHeaders = "host:" + RESTAPIHOST + "\n"+"content-type:application/json\n";
-        String signedHeaders = "host";
+        String canonicalHeaders = "content-type:application/json\nhost:" + RESTAPIHOST + "\n";
+        String signedHeaders = "content-type;host";
         String payloadHash = sha256Hex(requestBody);
 
         // Create the string to sign
@@ -51,7 +53,8 @@ public class AWSSigner {
         for(int i = 0; i < connections.size(); i++) {
 
             String canonicalUri = RESTAPIPATH+connections.get(i);
-            String canonicalRequest = METHOD + "\n" + canonicalUri + "\n" + canonicalQuerystring + "\n" + canonicalHeaders + "\n" + signedHeaders + "\n" + payloadHash;
+            String encodedUri = ENCODEDRESTAPIPATH +URLEncoder.encode(connections.get(i), StandardCharsets.UTF_8);
+            String canonicalRequest = METHOD + "\n" + encodedUri+ "\n" + canonicalQuerystring + "\n" + canonicalHeaders + "\n" + signedHeaders + "\n" + payloadHash;
             String hashedCanonicalRequest = sha256Hex(canonicalRequest);
             String stringToSign = ALGORITHM + "\n" + amzDate + "\n" + credentialScope + "\n" + hashedCanonicalRequest;
 
@@ -59,7 +62,6 @@ public class AWSSigner {
             byte[] signingKey = getSignatureKey(AWS_SECRET_ACCESS_KEY, dateStamp, REGION, SERVICE);
             String signature = hmacSha256Hex(signingKey, stringToSign);
             String authorizationHeader = ALGORITHM + " " + "Credential=" + AWS_ACCESS_KEY_ID + "/" + credentialScope + ", " + "SignedHeaders=" + signedHeaders + ", " + "Signature=" + signature;
-
             // Make the header
             URL url = new URL("https://" + RESTAPIHOST + canonicalUri);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -81,9 +83,12 @@ public class AWSSigner {
             int responseCode = con.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String responseBody = new String(con.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-                System.out.println(responseBody);
+
             } else {
-                System.out.println("Error: " + responseCode + " " + con.getResponseMessage());
+
+                System.out.println("Error: " + responseCode + " " + con.getResponseMessage() );
+                String errorBody = new String(con.getErrorStream().readAllBytes(), StandardCharsets.UTF_8);
+                System.out.println("Error body:"+errorBody);
             }
         }
     }
