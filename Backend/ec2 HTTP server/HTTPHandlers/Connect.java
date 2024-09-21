@@ -30,6 +30,8 @@ public class Connect {
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
+            //Lets notify everyone that someone connected:
+            PostAllUsersToLobby.postAllUsersToLobby();
 
         } catch (Exception e) {
             //If we failed to get a player properly, return 400
