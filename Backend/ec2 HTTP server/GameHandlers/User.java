@@ -88,7 +88,7 @@ public class User extends Player{
         }
         else{
 
-            System.out.println("Player " +user.getUsername()+ " now has "+(user.connectionID.size()) + "live connections");
+            System.out.println("Player " +user.getUsername()+ " now has "+(user.connectionID.size()) + " live connections");
         }
         connectionList.remove(connectionID);
         return user;
@@ -97,10 +97,8 @@ public class User extends Player{
         JSONObject users = new JSONObject();
         for(int i =0; i < onlineList.size();i++){
             User u = onlineList.elementAt(i);
-            System.out.print("Found player "+u.getUsername());
             users.put(u.getUsername(),u.getState().toString());
         }
-        System.out.println();
        return users.toString();
     }
 
