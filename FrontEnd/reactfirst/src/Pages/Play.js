@@ -19,8 +19,8 @@ const Play = () => {
     <div className="App">
 
       <header className="App-header">
-      <h1>Play Page</h1>
-      <PlayerList users={users} />
+      <h1>Welcome</h1>
+      <PlayerList users={users} className="userList"/>
 
 
         <Button

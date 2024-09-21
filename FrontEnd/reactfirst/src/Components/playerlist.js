@@ -1,10 +1,11 @@
 import React from 'react';
-import { List, ListItem, ListItemText, Typography } from '@mui/material';
+import {Paper,List, ListItem, ListItemText, Typography } from '@mui/material';
 import {socket} from './Socket';
 export const PlayerList = ({ users }) => {
   return (
     <div>
-      <Typography variant="h6">Player List</Typography>
+     <Paper elevation={2} sx={{  }}>
+      <Typography variant="h6">Player List:</Typography>
       <List>
         {Object.entries(users).map(([username, status]) => (
           <ListItem key={username}>
@@ -12,6 +13,7 @@ export const PlayerList = ({ users }) => {
           </ListItem>
         ))}
       </List>
+      </Paper>
     </div>
   );
 };
