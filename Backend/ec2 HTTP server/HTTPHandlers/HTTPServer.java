@@ -27,7 +27,6 @@ public class HTTPServer {
     static class ConnectHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            System.out.println("Connections request received");
             String response = Connect.connectPlayer(exchange);
             System.out.println("Result sent:"+ response);
         }
@@ -36,7 +35,6 @@ public class HTTPServer {
     static class DisconnectHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            System.out.println("Disconnect request received.");
             Disconnect.disconnectPlayer(exchange);
         }
     }
@@ -60,7 +58,6 @@ public class HTTPServer {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             String requestBody = new String(exchange.getRequestBody().readAllBytes());
-            System.out.println("Player list requested: " + requestBody);
             String response = User.getUsers();
             System.out.println("PlayerList Response:"+response);
             exchange.sendResponseHeaders(200, response.getBytes().length);

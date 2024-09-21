@@ -40,7 +40,7 @@ public class User extends Player{
     private User addConnection(String connectionID) {
         User.connectionList.put(connectionID,this);
         this.connectionID.add(connectionID);
-        System.out.println("ConnectionID added from " + this.connectionID+" to "+connectionID);
+        System.out.println("ConnectionID " + connectionID+ " added to " + this.connectionID);
         return this;
     }
     public String getSub() {
@@ -58,7 +58,6 @@ public class User extends Player{
     //Returns a player object unless one is already made
     public static User getUser(String sub, String username, String connectionID){
         //if the player object exists, send it.
-        System.out.println("Finding player with username "+username);
         if(User.userList.containsKey(sub)){
             return User.userList.get(sub).addConnection(connectionID);
         }
@@ -89,19 +88,19 @@ public class User extends Player{
         }
         else{
 
-            System.out.println("Player " +user.getUsername()+ " now has "+(user.connectionID.size()-1) + "live connections");
+            System.out.println("Player " +user.getUsername()+ " now has "+(user.connectionID.size()) + "live connections");
         }
         connectionList.remove(connectionID);
         return user;
     }
     public static String getUsers(){
         JSONObject users = new JSONObject();
-        System.out.println("Checking for players...");
         for(int i =0; i < onlineList.size();i++){
             User u = onlineList.elementAt(i);
-            System.out.println("Found player "+u.getUsername());
+            System.out.print("Found player "+u.getUsername());
             users.put(u.getUsername(),u.getState().toString());
         }
+        System.out.println();
        return users.toString();
     }
 
