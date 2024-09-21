@@ -16,6 +16,7 @@ public class Disconnect {
         try{
             JSONObject infoJson = ExchangeHandler.getInfoJsonFromExchange(exchange);
             User.removeConnection(infoJson.getString("connectionID"));
+            PostAllUsersToLobby.postAllUsersToLobby();
         }catch (Exception e){
             System.out.println("Error in disconnect: "+e);
         }
