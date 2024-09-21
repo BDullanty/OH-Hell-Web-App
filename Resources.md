@@ -27,6 +27,7 @@ https://docs.aws.amazon.com/apigateway/latest/developerguide/security_iam_servic
 
 ## EC2
 - [Send Messages Back To Clients](https://docs.aws.amazon.com/apigateway/latest/developerguide/security_iam_service-with-iam.html)
-- [Send Messages Back To Clients part 2](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-how-to-call-websocket-api-connections.html)
+- [Send Messages Back To Clients Part 2](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-how-to-call-websocket-api-connections.html)
+- [Examples of Signing](https://github.com/aws-samples/sigv4-signing-examples/blob/main/no-sdk/java/AWSSigner.java)
 - [Installing Amazon Corretto on Amazon Linux](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/amazon-linux-install.html)
 - [Linux File Transfer using SCP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/linux-file-transfer-scp.html)
