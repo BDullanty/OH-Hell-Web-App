@@ -22,7 +22,7 @@ export async function connectWebSocket(setUsers) {
          // setLobby(jsonData.data.lobbyList);
           break;
         case 'playerList':
-          setUsers(jsonData.data.playerList);
+          setUsers(jsonData.data.users);
           break;
         case 'error':
           console.error("Error Message: ", jsonData.error);
