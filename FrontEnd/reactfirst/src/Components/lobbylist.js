@@ -11,7 +11,7 @@ export const GameList = ({ gameList }) => {
           <List>
             {Object.entries(gameList).map(([gameID, gameDetails]) => (
               <ListItem key={gameID}>
-                <ListItemText primary={`${gameDetails.host}'s game`} secondary={gameDetails.status} />
+                <ListItemText primary={`${gameDetails.host}'s game`} secondary={gameDetails.state} />
                 
                 <List>
                   {[gameDetails.host, gameDetails.player2, gameDetails.player3, gameDetails.player4, gameDetails.player5].map((player, index) => (
@@ -25,8 +25,11 @@ export const GameList = ({ gameList }) => {
                 {getCookie('gameID') ===  gameDetails.gameID && (
                 <Typography variant="body2">Vote to start?</Typography>
               )}
-                {gameDetails.status === "INGAME" && (
-                <Typography variant="body2">Round: {gameDetails.round}</Typography>
+                {gameDetails.state === "INGAME" && (
+                <Typography variant="body2">In game, Round: {gameDetails.round}</Typography>
+              )}
+              {gameDetails.state === "LOBBY" && (
+                <Typography variant="body2">Lobby {gameDetails.round}</Typography>
               )}
 
               </ListItem>
