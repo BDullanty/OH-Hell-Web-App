@@ -46,7 +46,7 @@ public class GameHandler {
     }
     public static void addGameToLobby(Game game){
         games.put(game.getGameID(),game);
-        game.setState(State.LOBBY);
+        game.setState(State.WAITING);
 
     }
     public static void end(Game game){

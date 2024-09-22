@@ -38,7 +38,7 @@ public class User extends Player{
         // for each player in lobby
         for(int i = 0; i < onlineList.size();i++){
             User u =onlineList.get(i);
-            if(u.state==State.LOBBY){
+            if(u.state==State.LOBBY || u.state==State.WAITING){
                 //For each connection this player has
                 for(int j = 0; j <u.connectionID.size(); j++){
                     connections.add(u.connectionID.get(j));
