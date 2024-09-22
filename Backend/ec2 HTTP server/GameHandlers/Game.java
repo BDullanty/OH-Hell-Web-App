@@ -42,6 +42,10 @@ public class Game {
         if(this.players.isEmpty()) endGame();
     }
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
     public void startGame(){
         GameHandler.start(this);
     }
@@ -50,5 +54,13 @@ public class Game {
     }
     public void setState(State state) {
         this.state= state;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public Enum getState() {
+        return state;
     }
 }
