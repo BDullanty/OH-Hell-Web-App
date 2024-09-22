@@ -17,23 +17,23 @@ export async function connectWebSocket(setUsers,setGames) {
       console.log("ReturnType:  ", jsonData.returnType)
 
       switch (jsonData.returnType) {
-        case 'lobbyList':
-         // setLobby(jsonData.data.lobbyList);
-          break;
         case 'playerList':
           setUsers(jsonData.users);
           break;
         case 'gameList':
-            setGames(jsonData.games);
-            break;
+          setGames(jsonData.games);
+          break;
         case 'userInfo':
           setCookie('userName',jsonData.userName);
           setCookie('userState',jsonData.userState);
           setCookie('gameID',jsonData.gameID);
           break;
         case 'createGame':
-            console.log("createGame response triggered");
-            break;
+          console.log("createGame response triggered");
+          break;
+        case 'startGame':
+          console.log("startGame response triggered");
+          break;
         case 'error':
           console.error("Error Message: ", jsonData.error);
           break;
