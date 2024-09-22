@@ -1,11 +1,9 @@
 
 import { getCookie } from './cookies';
-import { updateLobbyList } from './playerlist';
-import { requestPlayerList } from './playerlist';
 
 export let socket = null;
 
-export async function connectWebSocket(setUsers) {
+export async function connectWebSocket(setUsers,setGames) {
   const token = getCookie('access_token');
   console.log(token);
   try {
@@ -25,6 +23,9 @@ export async function connectWebSocket(setUsers) {
         case 'playerList':
           setUsers(jsonData.users);
           break;
+        case 'gameList':
+            setGames(jsonData.games);
+            break;
         case 'error':
           console.error("Error Message: ", jsonData.error);
           break;
