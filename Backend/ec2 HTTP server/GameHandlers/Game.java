@@ -56,6 +56,7 @@ public class Game {
         this.bets = new int[5];
         this.playerHands = new HashMap<>();
         GameHandler.addGameToLobby(this);
+        host.gameID= this.gameID;
 
 
     }
