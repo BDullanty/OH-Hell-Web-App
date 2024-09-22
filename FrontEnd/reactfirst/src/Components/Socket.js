@@ -1,9 +1,9 @@
 
-import { getCookie } from './cookies';
+import { getCookie, setCookie } from './cookies';
 
 export let socket = null;
 
-export async function connectWebSocket(setUsers,setGames) {
+export async function connectWebSocket(setUsers, setGames) {
   const token = getCookie('access_token');
   console.log(token);
   try {
