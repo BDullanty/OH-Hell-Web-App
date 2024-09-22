@@ -46,12 +46,15 @@ const Play = () => {
 }
 
 const createGame = () => {
-  const connectMessage =
-    JSON.stringify({
+  const createGameMessage =
+    JSON.stringify(
+      {
       action: "createGame"
-    });
+    }
+  );
+  console.log(createGameMessage)
   if (!LobbyListOnCooldown) {
-    socket.send(connectMessage);
+    socket.send(createGameMessage);
     LobbyListOnCooldown = true;
     setTimeout(() => {
       LobbyListOnCooldown = false
