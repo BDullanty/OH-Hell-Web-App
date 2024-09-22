@@ -1,13 +1,17 @@
 package HTTPHandlers;
+import GameHandlers.Game;
 import GameHandlers.GameHandler;
 import GameHandlers.User;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+
+import static HTTPHandlers.ExchangeHandler.getInfoJsonFromExchange;
 
 public class HTTPServer {
 
@@ -17,6 +21,7 @@ public class HTTPServer {
         server.createContext("/Connect", new ConnectHandler());
         server.createContext("/Disconnect", new DisconnectHandler());
         server.createContext("/ListPlayers", new ListPlayers());
+        server.createContext("/CreateGame", new CreateGameHandler());
         server.createContext("/PlayCard", new PlayCardHandler());
         server.setExecutor(null); // Creates a default executor
         server.start();
@@ -51,6 +56,35 @@ public class HTTPServer {
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
+        }
+    }
+    static class CreateGameHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            System.out.println("Received game creation request"  );
+            String response = "";
+            try{
+                String body = new String(exchange.getRequestBody().readAllBytes());
+                System.out.println("Game creation body: "+body  );
+                JSONObject infoJson= new JSONObject(body);
+
+                User u = User.getUser(infoJson.getString("connectionID"));
+                System.out.println("got user " + u.getUsername() );
+                GameHandler.addGameToLobby(new Game(u));
+                exchange.sendResponseHeaders(200, response.getBytes().length);
+                OutputStream os = exchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+                PostAllGamesToLobby.postAllGamesToLobby();
+            } catch(Exception e){
+                System.out.println("Error when creating game: "+e);
+                response = "{\"error\":\"Bad create game request:\n"+e+"\"}";
+                exchange.sendResponseHeaders(400, response.getBytes().length);
+                OutputStream os = exchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+            }
+
         }
     }
     //Returns a list of players connected to the websocket server
