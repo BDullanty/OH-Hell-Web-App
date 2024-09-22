@@ -1,0 +1,11 @@
+Filter /200/
+{
+  "returnType": "createGame"
+}
+
+Filter /400/
+//Routes status code and body back
+{
+  "error": "$input.path('$.error')",
+  "returnType": "error"
+}

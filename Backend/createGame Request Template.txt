@@ -1,0 +1,5 @@
+//Expects a selection expression of \$default and a key of $default
+
+{
+    "connectionID": "$context.connectionId"
+}
