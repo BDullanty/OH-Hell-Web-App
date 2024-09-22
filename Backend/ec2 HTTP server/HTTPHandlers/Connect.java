@@ -3,12 +3,9 @@ package HTTPHandlers;
 import GameHandlers.User;
 import com.sun.net.httpserver.HttpExchange;
 import org.json.JSONObject;
-import GameHandlers.Player;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
-import static HTTPHandlers.ExchangeHandler.getInfoJsonFromExchange;
 
 public class Connect {
 
@@ -19,8 +16,8 @@ public class Connect {
         String response;
         try {
             //parse exhange into json with info.
-            JSONObject infoJson = getInfoJsonFromExchange(exchange);
-            User connectingPlayer = getUserFromBody(infoJson);
+            JSONObject infoJson = ExchangeHandler.getInfoJsonFromExchange(exchange);
+            User connectingPlayer = getUserFromParsedJWK(infoJson);
             //If  our jwk does process into a player and sub,
             User.addUserOnline(connectingPlayer);
             System.out.println("Player " + connectingPlayer.getUsername() + " is now connected.");
@@ -30,9 +27,12 @@ public class Connect {
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
-            //Lets notify everyone that someone connected:
+            //Send this user some info about themselves:
+            PostUserInfo.postUserInfo(connectingPlayer);
+            //Show this user the lobbies:
+            PostAllGamesInfo.postAllGamesToUser(connectingPlayer);
+            //Notify everyone that someone connected:
             PostAllUsersToLobby.postAllUsersToLobby();
-            PostAllGamesToLobby.postAllGamesToLobby();
 
         } catch (Exception e) {
             //If we failed to get a player properly, return 400
@@ -46,7 +46,7 @@ public class Connect {
         return response;
     }
 
-    public static User getUserFromBody(JSONObject infoJson) {
+    public static User getUserFromParsedJWK(JSONObject infoJson) {
         try {
             return User.getUser(infoJson.getString("sub"), infoJson.getString("username"), infoJson.getString("connectionID"));
         } catch (Exception e) {
