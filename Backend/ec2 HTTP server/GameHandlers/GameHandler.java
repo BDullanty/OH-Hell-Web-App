@@ -1,11 +1,42 @@
 package GameHandlers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameHandler {
 
-    public static String getLobbyGames() {
-        return lobbyGames.values().toString();
+    public static String getLobbyGamesJson() {
+
+        System.out.println("There are this many lobbies: "+ games.size());
+        String gameString = "{";
+        int tracker = 0;
+        for(Game game : games.values()){
+            tracker+=1;
+
+            ArrayList<Player> players = game.getPlayers();
+            gameString+= " \""+game.getGameID()+"\" : {";
+
+            gameString+= "\"host\":\""+players.get(0).username+"\",";
+            int size = players.size();
+            for(int j = 0; j < size;j++){
+                gameString+= "\"player"+(j+1)+"\":\""+players.get(j).username+"\", ";
+            }
+            //size = 2
+            //so we iterate 1,2,3+size for playernum
+            for(int k =1; k <= 5-size;k++){
+
+                gameString+= "\"player"+(k+size)+"\":\"Empty\", ";
+
+            }
+            gameString+= "\"state\":\""+game.getState()+"\",";
+            gameString+= "\"round\":\""+game.getRound()+"\"";
+
+            if(tracker !=games.size()) gameString+="},";
+            else gameString+="}";
+            //for each game, we want to format
+        }
+        gameString+="}";
+        return gameString;
     }
 
 
