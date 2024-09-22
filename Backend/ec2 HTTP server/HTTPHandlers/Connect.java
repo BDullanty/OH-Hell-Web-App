@@ -32,6 +32,7 @@ public class Connect {
             os.close();
             //Lets notify everyone that someone connected:
             PostAllUsersToLobby.postAllUsersToLobby();
+            PostAllGamesToLobby.postAllGamesToLobby();
 
         } catch (Exception e) {
             //If we failed to get a player properly, return 400
