@@ -12,25 +12,25 @@ export async function connectWebSocket(setUsers, setGames) {
     socket = new WebSocket(url);
 
     socket.addEventListener('message', function (event) {
-      console.log("Raw Response: ", event.data);
-      const jsonData = JSON.parse(event.data);
-      console.log("ReturnType:  ", jsonData.returnType)
 
+
+      const jsonData = JSON.parse(event.data);
       switch (jsonData.returnType) {
         case 'playerList':
           setUsers(jsonData.users);
           break;
         case 'gameList':
+          console.log("Received game list");
           setGames(jsonData.games);
           break;
         case 'userInfo':
+          console.log("User info received");
           setCookie('userName',jsonData.userName);
           setCookie('userState',jsonData.userState);
           setCookie('gameID',jsonData.gameID);
           break;
         case 'createGame':
           setCookie('gameID',jsonData.gameID);
-          setGames(jsonData.games);
           console.log("createGame response triggered. returned Game ID: "+getCookie('gameID'));
           break;
         case 'startGame':
@@ -42,7 +42,12 @@ export async function connectWebSocket(setUsers, setGames) {
         default:
           console.log("Response Data: ", jsonData.data);
           break;
-      }
+            console.log("Raw Response: ", event.data);
+      const jsonData = JSON.parse(event.data);
+      console.log("ReturnType:  ", jsonData.returnType)
+        }
+        console.log("Raw Response: ", event.data);
+        console.log("ReturnType:  ", jsonData.returnType)
     });
     socket.addEventListener('open', function (event) {
       console.log('Connection Established');
