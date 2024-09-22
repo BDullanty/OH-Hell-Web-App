@@ -1,6 +1,7 @@
 package HTTPHandlers;
 import GameHandlers.Game;
 import GameHandlers.GameHandler;
+import GameHandlers.State;
 import GameHandlers.User;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpHandler;
@@ -22,7 +23,7 @@ public class HTTPServer {
         server.createContext("/Disconnect", new DisconnectHandler());
         server.createContext("/ListPlayers", new ListPlayers());
         server.createContext("/CreateGame", new CreateGameHandler());
-        server.createContext("/StartGame", new StartGameHandler());
+        server.createContext("/VoteStart", new StartGameHandler());
         server.createContext("/PlayCard", new PlayCardHandler());
         server.setExecutor(null); // Creates a default executor
         server.start();
@@ -94,7 +95,7 @@ public class HTTPServer {
     static class StartGameHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            System.out.println("Received game Start request");
+            System.out.println("Received voteStart request");
 
             try{
                 String response = "";
@@ -105,15 +106,22 @@ public class HTTPServer {
                 User requestingUser = User.getUser(infoJson.getString("connectionID"));
                 System.out.println("Requested by user " + requestingUser.getUsername() );
                 //Requires json to have gameID with gameID
-                Game game = GameHandler.getGame(infoJson.getInt("gameID"));
-                if(!game.getHost().equals(requestingUser)){
-                    throw new IllegalAccessException("Requesting user "+requestingUser.getUsername()+" is not the host "+ game.getHost().getUsername());
+                Game game = GameHandler.getGame(requestingUser.getGameID());
+                if( game.getState() != State.WAITING){
+                    throw new IllegalAccessException("Requesting user "+requestingUser.getUsername()+" is trying to start a game that is not in waiting ");
                 }
-                GameHandler.start(game);
+                if(requestingUser.hasVoted()){
+                    throw new IllegalAccessError("Already voted");
+                }
+
+                requestingUser.setVoted();
+
+                if(GameHandler.everyoneVotedStart(game)) GameHandler.start(game);
                 exchange.sendResponseHeaders(200, response.getBytes().length);
                 OutputStream os = exchange.getResponseBody();
                 os.write(response.getBytes());
                 os.close();
+                PostAllGamesInfo.postAllGamesToUser(requestingUser);
                 PostAllGamesInfo.postAllGamesToLobby();
             } catch(Exception e){
                 String response = "";
