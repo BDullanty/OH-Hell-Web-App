@@ -4,7 +4,7 @@ package GameHandlers;
 import java.util.ArrayList;
 import java.util.HashMap;
 public class Game {
-    public static int IDTracker;
+    public static int IDTracker = 0;
     //NonStatic:
     private int gameID;
     private ArrayList<Player> players;
@@ -16,19 +16,23 @@ public class Game {
 
     private HashMap<Player,ArrayList<Card>> playerHands;
     private int[] bets;
+    private int round;
 
 
     public Game(Player host){
 
-        this.gameID = this.IDTracker;
-        this.players.add(host);
+        this.gameID = ++this.IDTracker;
+        this.players = new ArrayList<>();
+
         this.host = host;
+        this.players.add(host);
         this.deck = new Deck();
         this.state = State.LOBBY;
         this.playerTurn = 0;
         this.bets = new int[5];
         this.playerHands = new HashMap<>();
         GameHandler.addGameToLobby(this);
+
 
     }
     public int getGameID(){
