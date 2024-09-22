@@ -12,20 +12,17 @@ public class GameHandler {
     //TODO: change to load from backend
     //Static:
     //Games are stored in a hashmap with Key as gameID
-    private static HashMap<Integer, Game> lobbyGames = new HashMap<Integer, Game>();
-    private static HashMap<Integer, Game> liveGames = new HashMap<Integer, Game>();
+    private static HashMap<Integer, Game> games = new HashMap<Integer, Game>();
 
-    private static HashMap<Integer, Game> finishedGames = new HashMap<Integer, Game>();
+
     //Static functions:
     public static Game getGame(int gameID){
-        return lobbyGames.get(gameID);
+        return games.get(gameID);
     }
 
     public static void start(Game game){
         //to start game, we will set the state to in game
         game.setState(State.INGAME);
-        lobbyGames.remove(game.getGameID());
-        liveGames.put(game.getGameID(), game);
         //TODO:
         //We must add in bot players for remaining slots
         //We will loop n rounds, each round players get cards, bet, and do sub rounds up to n
@@ -48,15 +45,14 @@ public class GameHandler {
 
     }
     public static void addGameToLobby(Game game){
-
-        lobbyGames.put(game.getGameID(),game);
+        games.put(game.getGameID(),game);
+        game.setState(State.LOBBY);
     }
     public static void end(Game game){
 
         game.setState(State.COMPLETED);
         //to start game, we will set the state to in game
-        liveGames.remove(game.getGameID());
-        finishedGames.put(game.getGameID(),game);
+
     }
 
 }
