@@ -63,3 +63,15 @@ export async function connectWebSocket(setUsers, setGames) {
     console.error("Failed connecting to websocket: ", error)
   }
 }
+export const voteStart = () => {
+  const voteStartMessage =
+    JSON.stringify(
+      {
+      action: "VoteStart"
+    }
+  );
+  console.log(voteStartMessage)
+    socket.send(voteStartMessage);
+
+
+}
