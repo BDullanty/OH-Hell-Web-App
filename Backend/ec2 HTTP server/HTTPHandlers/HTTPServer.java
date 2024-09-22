@@ -70,12 +70,14 @@ public class HTTPServer {
 
                 User u = User.getUser(infoJson.getString("connectionID"));
                 System.out.println("got user " + u.getUsername() );
-                GameHandler.addGameToLobby(new Game(u));
+                Game game = new Game(u);
+                GameHandler.addGameToLobby(game);
+                response = "{\"gameID\" : \""+game.getGameID()+"\"}";
                 exchange.sendResponseHeaders(200, response.getBytes().length);
                 OutputStream os = exchange.getResponseBody();
                 os.write(response.getBytes());
                 os.close();
-                PostAllGamesToLobby.postAllGamesToLobby();
+                PostAllGamesInfo.postAllGamesToLobby();
             } catch(Exception e){
                 System.out.println("Error when creating game: "+e);
                 response = "{\"error\":\"Bad create game request:\n"+e+"\"}";
