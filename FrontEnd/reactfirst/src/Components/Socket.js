@@ -16,7 +16,8 @@ export async function connectWebSocket(setUsers, setGames) {
 
       const jsonData = JSON.parse(event.data);
       switch (jsonData.returnType) {
-        case 'playerList':
+        case 'Users':
+          console.log("User List Inbound");
           setUsers(jsonData.users);
           break;
         case 'gameList':
@@ -42,12 +43,8 @@ export async function connectWebSocket(setUsers, setGames) {
         default:
           console.log("Response Data: ", jsonData.data);
           break;
-            console.log("Raw Response: ", event.data);
-      const jsonData = JSON.parse(event.data);
-      console.log("ReturnType:  ", jsonData.returnType)
         }
         console.log("Raw Response: ", event.data);
-        console.log("ReturnType:  ", jsonData.returnType)
     });
     socket.addEventListener('open', function (event) {
       console.log('Connection Established');
