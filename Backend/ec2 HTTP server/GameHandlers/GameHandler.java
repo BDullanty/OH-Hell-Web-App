@@ -56,6 +56,13 @@ public class GameHandler {
 
     }
 
+    public static boolean everyoneVotedStart(Game game){
+        boolean ready = true;
+        for(Player p : game.getPlayers()){
+            if(!p.hasVoted())ready=false;
+        }
+        return ready;
+    }
     public static String getLobbyGamesJson() {
 
         System.out.println("There are this many lobbies: "+ games.size());

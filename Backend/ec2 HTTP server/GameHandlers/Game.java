@@ -85,7 +85,6 @@ public class Game {
         System.out.println("Changed game state to " + state);
         this.state= state;
         //set user states now
-        if(state.equals(State.LOBBY)) state = State.WAITING;
         if(state.equals(State.COMPLETED)) state = State.LOBBY;
         for(int i = 0; i <players.size();i++){
             if(this.players.get(i).getClass().getSimpleName().equals("User")){
