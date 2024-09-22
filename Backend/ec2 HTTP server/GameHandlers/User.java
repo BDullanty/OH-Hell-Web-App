@@ -20,10 +20,6 @@ public class User extends Player{
     public Enum state;
     protected ArrayList<String> connectionID;
 
-    protected ArrayList<Card> hand;
-    protected int bet;
-
-
     public User(String sub,String username, String connectionID){
         super(username);
         this.connectionID = new ArrayList<>();
@@ -50,6 +46,10 @@ public class User extends Player{
             }
         }
         return connections;
+    }
+
+    public void setState(State state) {
+        this.state= state;
     }
 
     private User addConnection(String connectionID) {
@@ -121,4 +121,7 @@ public class User extends Player{
         return this.state;
     }
 
+    public ArrayList<String> getConnections() {
+        return this.connectionID;
+    }
 }
