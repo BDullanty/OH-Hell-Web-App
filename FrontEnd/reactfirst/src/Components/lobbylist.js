@@ -24,7 +24,8 @@ export const GameList = ({ gameList }) => {
                     )
                   ))}
                 </List>
-                {getCookie('gameID') === gameID && (
+                {getCookie('gameID') === gameID &&
+                getCookie('gameState') === "WAITING" && (
                   <div>
                     <Button onClick={() => {
                       voteStart();
