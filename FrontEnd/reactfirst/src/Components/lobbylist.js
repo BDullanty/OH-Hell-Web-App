@@ -25,14 +25,15 @@ export const GameList = ({ gameList }) => {
                   ))}
                 </List>
                 {getCookie('gameID') === gameID &&
-                getCookie('gameState') === "WAITING" && (
+                gameDetails.state === "WAITING" && (
                   <div>
                     <Button onClick={() => {
                       voteStart();
                     }}>Vote to start</Button>
                   </div>
                 )}
-                {getCookie('gameID') !== gameID && (
+                {getCookie('gameID') !== gameID &&
+                gameDetails.state === "WAITING" (
                   <div>
                     <Button onClick={() => {
 
