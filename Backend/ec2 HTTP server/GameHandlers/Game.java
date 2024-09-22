@@ -81,7 +81,19 @@ public class Game {
         GameHandler.end(this);
     }
     public void setState(State state) {
+        System.out.println("Changed game state to " + state);
         this.state= state;
+        //set user states now
+        if(state.equals(State.LOBBY)) state = State.WAITING;
+        if(state.equals(State.COMPLETED)) state = State.LOBBY;
+        for(int i = 0; i <players.size();i++){
+            if(this.players.get(i).getClass().getSimpleName().equals("User")){
+                User user = (User) this.players.get(i);
+                user.setState(state);
+                System.out.println("Set "+ user.getUsername()+ "'s state to "+ state);
+            }
+        }
+
     }
 
     public int getRound() {
