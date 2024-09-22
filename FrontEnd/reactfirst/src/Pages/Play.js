@@ -8,8 +8,6 @@ import { GameList } from '../Components/lobbylist';
 const HomePageURL = "https://main.dmqlib7blr1by.amplifyapp.com/";
 let LobbyListOnCooldown = false;
 const cooldownTime = 5000;//1000 is one second
-
-let username = getCookie("username");
 const Play = () => {
   const [users, setUsers] = useState({});
   const [games, setGames] = useState({});
