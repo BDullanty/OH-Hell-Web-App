@@ -21,14 +21,15 @@ const Play = () => {
       <header className="App-header">
       <h1>Welcome</h1>
       <PlayerList users={users} className="userList"/>
-      <GameList gameList={games} className="lobbyList"/>
       <Button
           onClick={() => {
             createGame();
           }}
         >
-          create a game
+          Create a game
         </Button>
+      <GameList gameList={games} className="lobbyList"/>
+
         <Button
           onClick={() => {
             disconnect();
