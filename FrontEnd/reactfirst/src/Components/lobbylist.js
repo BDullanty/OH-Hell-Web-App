@@ -35,9 +35,6 @@ export const GameList = ({ gameList }) => {
                 {gameDetails.state === "INGAME" && (
                 <Typography variant="body2">In game, Round: {gameDetails.round}</Typography>
               )}
-              {gameDetails.state === "LOBBY" && (
-                <Typography variant="body2">Lobb</Typography>
-              )}
 
               </ListItem>
             ))}
