@@ -10,10 +10,14 @@ public abstract class Player{
     protected int gameID;
     protected ArrayList<Card> hand;
 
+    protected int bet;
+
+    boolean hasVoted;
     public Player(String username) {
         this.username = username;
         this.gameID = -1;
         this.hand = new ArrayList<>();
+        this.hasVoted = false;
     }
 
 
@@ -41,9 +45,10 @@ public abstract class Player{
         this.bet = bet;
     }
 
-    protected int bet;
 
-
+    public boolean hasVoted() {
+        return this.hasVoted;
+    }
 
 
 }

@@ -124,4 +124,9 @@ public class User extends Player{
     public ArrayList<String> getConnections() {
         return this.connectionID;
     }
+
+
+    public void setVoted() {
+        this.hasVoted = true;
+    }
 }
