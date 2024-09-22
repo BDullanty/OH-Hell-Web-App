@@ -15,14 +15,11 @@ public class ExchangeHandler {
         String body = new String(exchange.getRequestBody().readAllBytes());
         // Parse the JSON string
         JSONObject jsonObject = new JSONObject(body);
-        ArrayList<String> returnValues = new ArrayList<>();
         // Decide if we get info from JWK or from connectionID
         if(jsonObject.has("jwk")) {
             String jwk = jsonObject.getString("jwk");
             String[] subAndName = decodeJWK(jwk);
 
-            returnValues.add(subAndName[0]);
-            returnValues.add(subAndName[1]);
             jsonObject.put("sub",subAndName[0]);
             jsonObject.put("username",subAndName[1]);
             jsonObject.remove(jwk);
