@@ -26,6 +26,9 @@ export async function connectWebSocket(setUsers,setGames) {
         case 'gameList':
             setGames(jsonData.games);
             break;
+        case 'createGame':
+            console.log("createGame response triggered");
+            break;
         case 'error':
           console.error("Error Message: ", jsonData.error);
           break;
