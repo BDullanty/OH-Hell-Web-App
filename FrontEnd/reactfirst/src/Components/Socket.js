@@ -16,7 +16,7 @@ export async function connectWebSocket(setUsers, setGames) {
 
       const jsonData = JSON.parse(event.data);
       switch (jsonData.returnType) {
-        case 'Users':
+        case 'users':
           console.log("User List Inbound");
           setUsers(jsonData.users);
           break;
