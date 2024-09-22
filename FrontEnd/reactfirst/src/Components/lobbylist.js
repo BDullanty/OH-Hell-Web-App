@@ -22,8 +22,10 @@ export const GameList = ({ gameList }) => {
                     )
                   ))}
                 </List>
-                {getCookie('gameID') ===  gameDetails.gameID && (
-                <Typography variant="body2">Vote to start?</Typography>
+                {getCookie('gameID') ===  gameID && (
+                  <div>
+                <Button>Vote to start</Button>
+                </div>
               )}
                 {gameDetails.state === "INGAME" && (
                 <Typography variant="body2">In game, Round: {gameDetails.round}</Typography>
