@@ -4,7 +4,7 @@ export const PlayerList = ({ users }) => {
   return (
     <div>
      <Paper elevation={2} sx={{  }}>
-      <Typography variant="h6">Player List:</Typography>
+      <Typography variant="h6">User List:</Typography>
       <List>
         {Object.entries(users).map(([username, status]) => (
           <ListItem key={username}>
