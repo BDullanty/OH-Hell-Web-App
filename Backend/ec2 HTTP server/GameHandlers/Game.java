@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 public class Game {
     public static int IDTracker = 0;
+
     //NonStatic:
     private int gameID;
     private ArrayList<Player> players;
@@ -12,18 +13,41 @@ public class Game {
     private Deck deck;
 
     private int playerTurn;
-    private Player host;
+    private User host;
 
     private HashMap<Player,ArrayList<Card>> playerHands;
     private int[] bets;
     private int round;
 
 
-    public Game(Player host){
+    public static int getIDTracker() {
+        return IDTracker;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public User getHost() {
+        return host;
+    }
+
+    public HashMap<Player, ArrayList<Card>> getPlayerHands() {
+        return playerHands;
+    }
+
+    public int[] getBets() {
+        return bets;
+    }
+
+    public Game(User host){
 
         this.gameID = ++this.IDTracker;
         this.players = new ArrayList<>();
-
         this.host = host;
         this.players.add(host);
         this.deck = new Deck();
