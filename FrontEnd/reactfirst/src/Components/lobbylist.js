@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paper, List, ListItem, ListItemText, Typography } from '@mui/material';
-export const Lobbylist = ({ lobbyList }) => {
+export const GameList = ({ gameList }) => {
   {
 
     return (
@@ -8,7 +8,7 @@ export const Lobbylist = ({ lobbyList }) => {
         <Paper elevation={2} sx={{}}>
           <Typography variant="h6">Lobby List:</Typography>
           <List>
-            {Object.entries(lobbyList).map(([gameID, gameDetails]) => (
+            {Object.entries(gameList).map(([gameID, gameDetails]) => (
               <ListItem key={gameID}>
                 <ListItemText primary={`${gameDetails.host}'s game`} secondary={gameDetails.status} />
                 
@@ -25,7 +25,7 @@ export const Lobbylist = ({ lobbyList }) => {
                 {gameDetails.status === "INGAME" && (
                 <Typography variant="body2">Round: {gameDetails.round}</Typography>
               )}
-              
+
               </ListItem>
             ))}
           </List>
