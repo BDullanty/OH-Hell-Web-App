@@ -24,7 +24,13 @@ const Play = () => {
       <h1>Welcome</h1>
       <PlayerList users={users} className="userList"/>
       <GameList gameList={games} className="lobbyList"/>
-
+      <Button
+          onClick={() => {
+            createGame();
+          }}
+        >
+          create a game
+        </Button>
         <Button
           onClick={() => {
             disconnect();
@@ -39,10 +45,10 @@ const Play = () => {
 
 }
 
-const requestLobbyList = () => {
+const createGame = () => {
   const connectMessage =
     JSON.stringify({
-      action: "lobbyList"
+      action: "createGame"
     });
   if (!LobbyListOnCooldown) {
     socket.send(connectMessage);
