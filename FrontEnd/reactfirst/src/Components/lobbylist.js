@@ -33,7 +33,7 @@ export const GameList = ({ gameList }) => {
                   </div>
                 )}
                 {getCookie('gameID') !== gameID &&
-                gameDetails.state === "WAITING" (
+                gameDetails.state === "WAITING" &&(
                   <div>
                     <Button onClick={() => {
 
