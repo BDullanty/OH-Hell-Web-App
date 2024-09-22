@@ -7,7 +7,7 @@ export const GameList = ({ gameList }) => {
     return (
       <div>
         <Paper elevation={2} sx={{}}>
-          <Typography variant="h6">Lobby List:</Typography>
+          <Typography variant="h6">Game List:</Typography>
           <List>
             {Object.entries(gameList).map(([gameID, gameDetails]) => (
               <ListItem key={gameID}>
@@ -27,11 +27,16 @@ export const GameList = ({ gameList }) => {
                 <Button>Vote to start</Button>
                 </div>
               )}
+              {getCookie('gameID') !==  gameID && (
+                  <div>
+                <Button>Join Game</Button>
+                </div>
+              )}
                 {gameDetails.state === "INGAME" && (
                 <Typography variant="body2">In game, Round: {gameDetails.round}</Typography>
               )}
               {gameDetails.state === "LOBBY" && (
-                <Typography variant="body2">Lobby {gameDetails.round}</Typography>
+                <Typography variant="body2">Lobb</Typography>
               )}
 
               </ListItem>
