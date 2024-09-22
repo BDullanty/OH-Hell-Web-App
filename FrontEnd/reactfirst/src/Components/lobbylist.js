@@ -1,5 +1,6 @@
 import React from 'react';
 import { Paper, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { getCookie } from './cookies';
 export const GameList = ({ gameList }) => {
   {
 
@@ -21,7 +22,9 @@ export const GameList = ({ gameList }) => {
                     )
                   ))}
                 </List>
-
+                {getCookie('gameID') ===  gameDetails.gameID && (
+                <Typography variant="body2">Vote to start?</Typography>
+              )}
                 {gameDetails.status === "INGAME" && (
                 <Typography variant="body2">Round: {gameDetails.round}</Typography>
               )}
