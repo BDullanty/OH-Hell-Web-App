@@ -10,7 +10,7 @@ public class PostAllUsersToLobby {
     
     public static void postAllUsersToLobby(){
         ArrayList<String> lobbyConnections = User.getLobbyConnections();
-        String message = "{\"users\" : "+ User.getUsers()+"}";
+        String message = "{\"returnType\": \"users\", \"users\" : "+ User.getUsers()+"}";
         try {
             AWSSigner.sendSignedMessage(message,lobbyConnections);
             System.out.println("Sent "+message+" to lobby players");
