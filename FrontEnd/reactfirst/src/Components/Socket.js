@@ -26,6 +26,11 @@ export async function connectWebSocket(setUsers,setGames) {
         case 'gameList':
             setGames(jsonData.games);
             break;
+        case 'userInfo':
+          setCookie('userName',jsonData.userName);
+          setCookie('userState',jsonData.userState);
+          setCookie('gameID',jsonData.gameID);
+          break;
         case 'createGame':
             console.log("createGame response triggered");
             break;
