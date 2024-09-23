@@ -185,25 +185,31 @@ public class HTTPServer {
                 JSONObject infoJson= new JSONObject(body);
 
                 User requestingUser = User.getUser(infoJson.getString("connectionID"));
-                System.out.println("Requested by user " + requestingUser.getUsername() );
                 //Requires json to have gameID with gameID
                 Game game = GameHandler.getGame(requestingUser.getGameID());
+
+                System.out.println("Requested game "+game.getGameID()+" which has "+game.getPlayers().size()+" players, by user " + requestingUser.getUsername() );
                 if( game.getState() != State.WAITING){
+                    System.out.println("not in waiting state...." );
                     throw new IllegalAccessException("Requesting user "+requestingUser.getUsername()+" is trying to start a game that is not in waiting ");
                 }
                 if(requestingUser.hasVoted()){
+                    System.out.println("Already voted" );
                     throw new IllegalAccessError("Already voted");
                 }
-
+                System.out.println("Setting user to voted...." );
                 requestingUser.setVoted();
-
+                System.out.println("Checking if everyone has voted...:");
                 if(GameHandler.everyoneVotedStart(game)){
+
+                    System.out.println("Everyone Has Voted");
                     GameHandler.start(game);
 
                     PostAllGamesInfo.postAllGamesToLobby();
                 }
                 else{
-                    PostAllGamesInfo.postAllGamesToUser(requestingUser);
+                    System.out.println("Still waiting on a vote in httpServer");
+                    PostAllGamesInfo.postAllGamesToLobby();
                 }
                 exchange.sendResponseHeaders(200, response.getBytes().length);
                 OutputStream os = exchange.getResponseBody();
