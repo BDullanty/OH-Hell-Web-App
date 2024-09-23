@@ -72,9 +72,15 @@ public class HTTPServer {
                 JSONObject infoJson= new JSONObject(body);
 
                 User u = User.getUser(infoJson.getString("connectionID"));
-                System.out.println("got user " + u.getUsername() );
+                System.out.println("got user " + u.getUsername() +" and they have a gameID of "+u.getGameID());
+                if(u.getGameID() != -1) {
+                    Game oldGame = GameHandler.getGame(u.getGameID());
+                    GameHandler.removeUserFromGame(u);
+                    if(oldGame.getPlayers().isEmpty()) GameHandler.end(oldGame);
+                }
                 Game game = new Game(u);
                 GameHandler.addGameToLobby(game);
+                System.out.println("Created game with ID "+game.getGameID()+" with host "+u.getUsername());
                 response = "{\"gameID\" : \""+game.getGameID()+"\"}";
                 exchange.sendResponseHeaders(200, response.getBytes().length);
                 OutputStream os = exchange.getResponseBody();
