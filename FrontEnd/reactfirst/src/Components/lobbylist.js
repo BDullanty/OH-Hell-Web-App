@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Paper, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { getCookie } from './cookies';
-import { leaveGame, voteStart } from './Socket';
+import { joinGame,leaveGame, voteStart } from './Socket';
 
 export const GameList = ({ gameList }) => {
   {
@@ -39,7 +39,7 @@ export const GameList = ({ gameList }) => {
                 gameDetails.state === "WAITING" &&(
                   <div>
                     <Button onClick={() => {
-
+                        joinGame(gameID);
                     }}
                     >Join Game</Button>
                   </div>
