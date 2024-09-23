@@ -16,7 +16,9 @@ public class GameHandler {
 
     //Static functions:
     public static Game getGame(int gameID){
-        return games.get(gameID);
+        Game resultGame = games.get(gameID);
+        System.out.println("Result from getGame id "+ gameID+": "+resultGame);
+        return resultGame;
     }
 
     public static void start(Game game){
@@ -46,11 +48,13 @@ public class GameHandler {
 
     }
     public static void addGameToLobby(Game game){
+
+        System.out.println("Moving game to lobby: "+game.getGameID());
         games.put(game.getGameID(),game);
         game.setState(State.WAITING);
-
     }
     public static void end(Game game){
+        System.out.println("Ending game "+game.getGameID());
         boolean doHistoryStore = true;
         if(game.getState().equals(State.WAITING)) doHistoryStore = false;
         games.remove(game.getGameID());
