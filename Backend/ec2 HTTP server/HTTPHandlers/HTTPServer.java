@@ -23,6 +23,7 @@ public class HTTPServer {
         server.createContext("/Disconnect", new DisconnectHandler());
         server.createContext("/ListPlayers", new ListPlayers());
         server.createContext("/CreateGame", new CreateGameHandler());
+        server.createContext("/LeaveGame", new LeaveGameHandler());
         server.createContext("/VoteStart", new StartGameHandler());
         server.createContext("/PlayCard", new PlayCardHandler());
         server.setExecutor(null); // Creates a default executor
@@ -91,7 +92,35 @@ public class HTTPServer {
 
         }
     }
+    static class LeaveGameHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            System.out.println("Received game leave request"  );
+            String response = "";
+            try{
+                String body = new String(exchange.getRequestBody().readAllBytes());
+                System.out.println("Game leave body: "+body  );
+                JSONObject infoJson = new JSONObject(body);
+                User u = User.getUser(infoJson.getString("connectionID"));
+                System.out.println("got user " + u.getUsername() );
+                GameHandler.removeUserFromGame(u);
+                PostAllGamesInfo.postAllGamesToLobby();
+                exchange.sendResponseHeaders(200, response.getBytes().length);
+                OutputStream os = exchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+                PostAllGamesInfo.postAllGamesToLobby();
+            } catch(Exception e){
+                System.out.println("Error when creating game: "+e);
+                response = "{\"error\":\"Bad create game request:\n"+e+"\"}";
+                exchange.sendResponseHeaders(400, response.getBytes().length);
+                OutputStream os = exchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+            }
 
+        }
+    }
     static class StartGameHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
