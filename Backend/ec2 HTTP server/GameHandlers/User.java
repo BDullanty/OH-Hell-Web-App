@@ -1,5 +1,6 @@
 package GameHandlers;
 
+import HTTPHandlers.PostAllUsersToLobby;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ public class User extends Player{
     //Userlist is the entire list of users offline or online, String is sub
     protected static HashMap<String,User> userList = new HashMap<>();
     protected String sub;
-    public Enum state;
     protected ArrayList<String> connectionID;
 
     public User(String sub,String username, String connectionID){
@@ -48,9 +48,6 @@ public class User extends Player{
         return connections;
     }
 
-    public void setState(State state) {
-        this.state= state;
-    }
 
     private User addConnection(String connectionID) {
         User.connectionList.put(connectionID,this);
@@ -99,10 +96,10 @@ public class User extends Player{
             user.state= State.OFFLINE;
             User.onlineList.remove(user);
             System.out.println("Player " +user.getUsername()+ " has gone offline.");
-
+            //TODO:Add in a method call for phantom removal
+            PostAllUsersToLobby.postAllUsersToLobby();
         }
         else{
-
             System.out.println("Player " +user.getUsername()+ " now has "+(user.connectionID.size()) + " live connections");
         }
         connectionList.remove(connectionID);
@@ -117,9 +114,6 @@ public class User extends Player{
        return users.toString();
     }
 
-    private Enum getState() {
-        return this.state;
-    }
 
     public ArrayList<String> getConnections() {
         return this.connectionID;

@@ -12,6 +12,7 @@ public abstract class Player{
 
     protected int bet;
 
+    public Enum state;
     boolean hasVoted;
     public Player(String username) {
         this.username = username;
@@ -21,12 +22,21 @@ public abstract class Player{
     }
 
 
+    public String getUsername(){
+        return this.username;
+    }
     public int getGameID() {
         return gameID;
     }
+    public void setState(State state) {
+        this.state= state;
+    }
+    public Enum getState() {
+        return this.state;
+    }
 
     public void setGameID(int gameID) {
-        gameID = gameID;
+        this.gameID = gameID;
     }
 
     public ArrayList<Card> getHand() {
