@@ -17,7 +17,7 @@ public class GameHandler {
     //Static functions:
     public static Game getGame(int gameID){
         Game resultGame = games.get(gameID);
-        System.out.println("Result from getGame id "+ gameID+": "+resultGame);
+        System.out.println("Result from getGame: passed id: "+ gameID+" resultantID: "+resultGame.getGameID());
         return resultGame;
     }
 
@@ -71,6 +71,7 @@ public class GameHandler {
         game.removePlayer(u);
         u.setGameID(-1);
         u.setState(State.LOBBY);
+        u.unsetVote();
         System.out.println(  u.getUsername()+ " left game "+game.getGameID());
 
     }
@@ -83,13 +84,20 @@ public class GameHandler {
     public static boolean everyoneVotedStart(Game game){
         boolean ready = true;
         for(Player p : game.getPlayers()){
-            if(!p.hasVoted())ready=false;
+            if(!p.hasVoted()) {
+
+                System.out.println("Still waiting for vote from "+p.getUsername()+" in game "+game.getGameID() );
+                ready = false;
+            }
+            else{
+                System.out.println(p.getUsername()+" has voted");
+            }
         }
         return ready;
     }
     public static String getLobbyGamesJson() {
 
-        System.out.println("There are this many lobbies: "+ games.size());
+        System.out.println("There are "+games.size()+" lobbies");
         String gameString = "{";
         int tracker = 0;
         for(Game game : games.values()){
