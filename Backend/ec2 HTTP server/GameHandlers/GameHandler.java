@@ -57,6 +57,13 @@ public class GameHandler {
         game.setState(State.COMPLETED);
         if(doHistoryStore) history.put(game.getGameID(),game);
 
+    }
+    public static void removeUserFromGame(User u) {
+        Game game = GameHandler.getGame(u.getGameID());
+        game.removePlayer(u);
+        if(game.getPlayers().isEmpty()) end(game);
+
+    }
     public static boolean everyoneVotedStart(Game game){
         boolean ready = true;
         for(Player p : game.getPlayers()){
