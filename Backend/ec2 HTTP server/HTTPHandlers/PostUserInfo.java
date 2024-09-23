@@ -12,7 +12,7 @@ public class PostUserInfo {
                 JSONObject returnJson = new JSONObject();
                 returnJson.put("returnType","userInfo");
                 returnJson.put("username",user.getUsername());
-                returnJson.put("state",user.state);
+                returnJson.put("state",user.getState());
                 returnJson.put("gameID", user.getGameID());
                 String message = returnJson.toString();
                 AWSSigner.sendSignedMessage(message,user.getConnections());

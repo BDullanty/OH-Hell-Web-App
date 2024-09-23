@@ -12,7 +12,11 @@ public class PostAllGamesInfo {
             String message = "{\"returnType\": \"gameList\", \"games\" : " + GameHandler.getLobbyGamesJson() + "}";
 
             AWSSigner.sendSignedMessage(message, lobbyConnections);
-            System.out.println("Sent " + message + " to lobby players");
+            String names = "";
+            for(int i = 0; i < lobbyConnections.size();i++){
+                names+= User.getUser(lobbyConnections.get(i)).getUsername()+" ";
+            }
+            System.out.println("Sent " + message + " to lobby players named: "+names);
         } catch (Exception e) {
             System.out.println("Failed to postAllGamesToLobby : " + e);
 
