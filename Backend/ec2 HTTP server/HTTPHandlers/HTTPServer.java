@@ -87,6 +87,7 @@ public class HTTPServer {
                 OutputStream os = exchange.getResponseBody();
                 os.write(response.getBytes());
                 os.close();
+                PostUserInfo.postUserInfo(u);
                 PostAllGamesInfo.postAllGamesToLobby();
             } catch(Exception e){
                 System.out.println("Error when creating game: "+e);
@@ -155,12 +156,12 @@ public class HTTPServer {
                 }
                 GameHandler.addUserToGame(u,requestGame.getGameID());
 
+                PostUserInfo.postUserInfo(u);
                 PostAllGamesInfo.postAllGamesToLobby();
                 exchange.sendResponseHeaders(200, response.getBytes().length);
                 OutputStream os = exchange.getResponseBody();
                 os.write(response.getBytes());
                 os.close();
-                PostAllGamesInfo.postAllGamesToLobby();
             } catch(Exception e){
                 System.out.println("Error when creating game: "+e);
                 response = "{\"error\":\"Bad create game request:\n"+e+"\"}";
