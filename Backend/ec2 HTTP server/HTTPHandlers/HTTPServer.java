@@ -24,6 +24,7 @@ public class HTTPServer {
         server.createContext("/ListPlayers", new ListPlayers());
         server.createContext("/CreateGame", new CreateGameHandler());
         server.createContext("/LeaveGame", new LeaveGameHandler());
+        server.createContext("/JoinGame", new JoinGameHandler());
         server.createContext("/VoteStart", new StartGameHandler());
         server.createContext("/PlayCard", new PlayCardHandler());
         server.setExecutor(null); // Creates a default executor
@@ -108,8 +109,52 @@ public class HTTPServer {
                 System.out.println("Game leave body: "+body  );
                 JSONObject infoJson = new JSONObject(body);
                 User u = User.getUser(infoJson.getString("connectionID"));
-                System.out.println("got user " + u.getUsername() );
+                System.out.println("got user " + u.getUsername() +" and they have a gameID of "+u.getGameID());
+                Game game = GameHandler.getGame(u.getGameID());
+
                 GameHandler.removeUserFromGame(u);
+                if(game.getPlayers().isEmpty()) GameHandler.end(game);
+
+                PostAllGamesInfo.postAllGamesToLobby();
+                exchange.sendResponseHeaders(200, response.getBytes().length);
+                OutputStream os = exchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+                PostAllGamesInfo.postAllGamesToLobby();
+            } catch(Exception e){
+                System.out.println("Error when creating game: "+e);
+                response = "{\"error\":\"Bad create game request:\n"+e+"\"}";
+                exchange.sendResponseHeaders(400, response.getBytes().length);
+                OutputStream os = exchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+            }
+
+        }
+    }
+    static class JoinGameHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            System.out.println("Received join game request"  );
+            String response = "";
+            try{
+                String body = new String(exchange.getRequestBody().readAllBytes());
+                System.out.println("Game leave body: "+body  );
+                JSONObject infoJson = new JSONObject(body);
+                User u = User.getUser(infoJson.getString("connectionID"));
+                Game requestGame = GameHandler.getGame(infoJson.getInt("gameID"));
+                System.out.println("got user " + u.getUsername() +"requesting into game "+requestGame.getGameID()+" and they have a gameID of "+u.getGameID());
+                //check stuff
+                if(!requestGame.getState().equals(State.WAITING)) throw new IllegalAccessError("Game is not joinable.");
+                if(requestGame.getPlayers().size()==5) throw new IllegalAccessError("Full game.");
+
+                if(u.getGameID() != -1) {
+                    Game oldGame = GameHandler.getGame(u.getGameID());
+                    GameHandler.removeUserFromGame(u);
+                    if(oldGame.getPlayers().isEmpty()) GameHandler.end(oldGame);
+                }
+                GameHandler.addUserToGame(u,requestGame.getGameID());
+
                 PostAllGamesInfo.postAllGamesToLobby();
                 exchange.sendResponseHeaders(200, response.getBytes().length);
                 OutputStream os = exchange.getResponseBody();
@@ -151,13 +196,19 @@ public class HTTPServer {
 
                 requestingUser.setVoted();
 
-                if(GameHandler.everyoneVotedStart(game)) GameHandler.start(game);
+                if(GameHandler.everyoneVotedStart(game)){
+                    GameHandler.start(game);
+
+                    PostAllGamesInfo.postAllGamesToLobby();
+                }
+                else{
+                    PostAllGamesInfo.postAllGamesToUser(requestingUser);
+                }
                 exchange.sendResponseHeaders(200, response.getBytes().length);
                 OutputStream os = exchange.getResponseBody();
                 os.write(response.getBytes());
                 os.close();
-                PostAllGamesInfo.postAllGamesToUser(requestingUser);
-                PostAllGamesInfo.postAllGamesToLobby();
+
             } catch(Exception e){
                 String response = "";
                 System.out.println("Error when starting game: "+e);
