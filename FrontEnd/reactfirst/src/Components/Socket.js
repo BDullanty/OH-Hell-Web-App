@@ -75,3 +75,15 @@ export const voteStart = () => {
 
 
 }
+export const leaveGame = () => {
+  const leaveGameMessage =
+    JSON.stringify(
+      {
+      action: "LeaveGame"
+    }
+  );
+  console.log(leaveGameMessage)
+    socket.send(leaveGameMessage);
+
+
+}
