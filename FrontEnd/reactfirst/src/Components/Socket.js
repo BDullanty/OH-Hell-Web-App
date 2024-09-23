@@ -87,13 +87,8 @@ export const leaveGame = () => {
 }
 
 export const joinGame = (gameID) => {
-  const joinGameMessage =
-    JSON.stringify(
-      {
-      action: "JoinGame",
-      gameID: gameID
-    }
-  );
-console.log(joinGameMessage)
+  const joinGameMessage = `{\"action\" : \"JoinGame\",\"gameID\" : ${gameID}}`;
+    
+  console.log(joinGameMessage)
   socket.send(joinGameMessage);
 }
