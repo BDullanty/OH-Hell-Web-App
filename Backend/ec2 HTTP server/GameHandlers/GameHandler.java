@@ -11,6 +11,7 @@ public class GameHandler {
     //Static:
     //Games are stored in a hashmap with Key as gameID
     private static HashMap<Integer, Game> games = new HashMap<Integer, Game>();
+    private static HashMap<Integer, Game> history = new HashMap<Integer, Game>();
 
 
     //Static functions:
@@ -104,5 +105,6 @@ public class GameHandler {
         gameString+="}";
         return gameString;
     }
+
 
 }
