@@ -88,7 +88,7 @@ export const joinGame = (gameID) => {
   const leaveGameMessage =
     JSON.stringify(
       {
-      action: "LeaveGame",
+      action: "JoinGame",
       gameID: gameID
     }
   );
