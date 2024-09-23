@@ -82,8 +82,16 @@ export const leaveGame = () => {
       action: "LeaveGame"
     }
   );
-  console.log(leaveGameMessage)
-    socket.send(leaveGameMessage);
+}
 
-
+export const joinGame = (gameID) => {
+  const leaveGameMessage =
+    JSON.stringify(
+      {
+      action: "LeaveGame",
+      gameID: gameID
+    }
+  );
+console.log(leaveGameMessage)
+  socket.send(leaveGameMessage);
 }
