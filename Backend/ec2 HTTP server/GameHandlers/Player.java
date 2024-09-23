@@ -12,8 +12,8 @@ public abstract class Player{
 
     protected int bet;
 
-    public Enum state;
-    boolean hasVoted;
+    protected Enum state;
+    protected boolean hasVoted;
     public Player(String username) {
         this.username = username;
         this.gameID = -1;
@@ -55,10 +55,16 @@ public abstract class Player{
         this.bet = bet;
     }
 
-
+    public void setVoted() {
+        this.hasVoted = true;
+    }
     public boolean hasVoted() {
         return this.hasVoted;
     }
 
+
+    public void unsetVote() {
+        this.hasVoted = false;
+    }
 
 }
