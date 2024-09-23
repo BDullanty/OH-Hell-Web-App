@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Paper, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { getCookie } from './cookies';
-import { voteStart } from './Socket';
+import { leaveGame, voteStart } from './Socket';
 
 export const GameList = ({ gameList }) => {
   {
@@ -30,6 +30,9 @@ export const GameList = ({ gameList }) => {
                     <Button onClick={() => {
                       voteStart();
                     }}>Vote to start</Button>
+                    <Button onClick={() => {
+                      leaveGame();
+                    }}>Leave Lobby</Button>
                   </div>
                 )}
                 {getCookie('gameID') !== gameID &&
