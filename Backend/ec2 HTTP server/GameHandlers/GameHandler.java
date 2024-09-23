@@ -50,11 +50,12 @@ public class GameHandler {
 
     }
     public static void end(Game game){
-
-        game.setState(State.COMPLETED);
+        boolean doHistoryStore = true;
+        if(game.getState().equals(State.WAITING)) doHistoryStore = false;
+        games.remove(game.getGameID());
         //to start game, we will set the state to in game
-
-    }
+        game.setState(State.COMPLETED);
+        if(doHistoryStore) history.put(game.getGameID(),game);
 
     public static boolean everyoneVotedStart(Game game){
         boolean ready = true;
