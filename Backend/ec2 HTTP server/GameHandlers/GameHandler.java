@@ -70,6 +70,12 @@ public class GameHandler {
         System.out.println(  u.getUsername()+ " left game "+game.getGameID());
 
     }
+    public static void addUserToGame(User u,int gameID) {
+        Game game = GameHandler.getGame(gameID);
+        game.addPlayer(u);
+        System.out.print(u.getUsername() +" added to game "+game.getGameID());
+    }
+
     public static boolean everyoneVotedStart(Game game){
         boolean ready = true;
         for(Player p : game.getPlayers()){
