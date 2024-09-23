@@ -57,12 +57,17 @@ public class GameHandler {
         //to start game, we will set the state to in game
         game.setState(State.COMPLETED);
         if(doHistoryStore) history.put(game.getGameID(),game);
+        for(Player p : game.getPlayers()){
+            removeUserFromGame(p);
+        }
 
     }
-    public static void removeUserFromGame(User u) {
+    public static void removeUserFromGame(Player u) {
         Game game = GameHandler.getGame(u.getGameID());
         game.removePlayer(u);
-        if(game.getPlayers().isEmpty()) end(game);
+        u.setGameID(-1);
+        u.setState(State.LOBBY);
+        System.out.println(  u.getUsername()+ " left game "+game.getGameID());
 
     }
     public static boolean everyoneVotedStart(Game game){
