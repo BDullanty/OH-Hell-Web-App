@@ -49,37 +49,28 @@ public class Game {
         this.gameID = ++this.IDTracker;
         this.players = new ArrayList<>();
         this.host = host;
-        this.players.add(host);
         this.deck = new Deck();
         this.state = State.LOBBY;
         this.playerTurn = 0;
         this.bets = new int[5];
         this.playerHands = new HashMap<>();
-        GameHandler.addGameToLobby(this);
-        host.gameID= this.gameID;
-
-
+        addPlayer(host);
     }
     public int getGameID(){
         return this.gameID;
     }
     public void addPlayer(Player p){
         this.players.add(p);
+        p.setGameID(this.gameID);
+        System.out.println("Player added and gameID set to "+p.getGameID());
     }
     public void removePlayer(Player p){
         this.players.remove(p);
-        if(this.players.isEmpty()) endGame();
+        System.out.println("Removing player "+p.getUsername()+" from "+this.gameID+" which now has "+this.players.size() + " players remaining.");
     }
 
     public ArrayList<Player> getPlayers() {
         return players;
-    }
-
-    public void startGame(){
-        GameHandler.start(this);
-    }
-    public void endGame(){
-        GameHandler.end(this);
     }
     public void setState(State state) {
         System.out.println("Changed game state to " + state);
